@@ -1,0 +1,47 @@
+{% extends 'website/main.html' %}
+
+{% block content %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Section Heading -->
+        <div class="col-md-3">
+            <div class="section-heading text-center white">
+                <h3>LOGIN</h3>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="col-md-3">
+                <div class="form-group mb-30">
+                    <input type="text" name="username" placeholder="Username..." class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-30">
+                    <input type="password" name="password" placeholder="Password..." class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group mb-30 text-center">
+                    <input class="btn btn-primary " type="submit" value="Login">
+                </div>
+            </div>
+        </div>
+    </form>
+
+<div class="col-md-3">
+        <div class="form-group mb- text-center">
+    {% for message in messages %}
+        <p class="btn btn-primary" id="messages">{{message}}</p>
+    {% endfor %}
+        </div>
+</div>
+
+    <div class="col-md-3">
+        <div class="form-group mb- text-center">
+            Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+        </div>
+    </div>
+{% endblock %}
