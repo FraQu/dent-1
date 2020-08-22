@@ -42,14 +42,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'contact' %}">Contact </a>
             </li>
+        </ul>
+        <ul class="navbar-nav">
+
             {% if request.user.is_anonymous %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login </a>
+                    <a class="btn btn-primary mr-1" href="{% url 'login' %}">Login </a>
                 </li>
+                <span></span>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register </a>
+                    <a class="btn btn-primary mr-1" href="{% url 'register' %}">Register </a>
                 </li>
             {% endif %}
+
         </ul>
     </div>
     {% if request.user.is_authenticated %}
