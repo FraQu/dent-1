@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from django.contrib.auth.models import Group
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+
 from .decorators import unauthenticated_user, allowed_users
-from .forms import CreateUserForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -13,20 +14,13 @@ email_contact = ['contact@dent.com']
 
 @unauthenticated_user
 def register_page(request):
-    form = CreateUserForm()
+    form = UserCreationForm()
 
     if request.method == "POST":
-        form = CreateUserForm(request.POST)
+        form = UserCreationForm(request.POST)
 
         if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            group = Group.objects.get(name='customer')
-            user.groups.add(group)
-            messages.success(request, "Account was created for " + username)
-            return redirect('login')
-        else:
-            messages.info(request, "Invalid data in field.")
+            form.save()
 
     context = {'form': form}
     return render(request, 'website/register.html', context)
