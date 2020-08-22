@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 
+from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -11,37 +12,36 @@ from django.contrib.auth.decorators import login_required
 email_contact = ['contact@dent.com']
 
 
+@unauthenticated_user
 def register_page(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = UserCreationForm()
+    form = UserCreationForm()
 
-        if request.method == "POST":
-            form = UserCreationForm(request.POST)
-            if form.is_valid():
-                form.save()
-        context = {'form': form}
-        return render(request, 'website/register.html', context)
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form}
+    return render(request, 'website/register.html', context)
 
 
+@unauthenticated_user
 def login_page(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == "POST":
-            username = request.POST.get('username')
-            password = request.POST.get('password')
 
-            user = authenticate(request, username=username, password=password)
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.info(request, 'Username OR password is incorrect')
-        context = {}
-        return render(request, 'website/login.html', context)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, 'Username OR password is incorrect')
+
+    context = {}
+    return render(request, 'website/login.html', context)
 
 
 def logout_user(request):
@@ -54,6 +54,7 @@ def index(request):
 
 
 def contact(request):
+
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']
@@ -75,6 +76,7 @@ def contact(request):
 
 
 def appointment(request):
+
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']
@@ -104,6 +106,5 @@ def appointment(request):
                        'message_time': message_time,
                        'message': message,
                        })
-
     else:
         return render(request, 'website/appointment.html')
