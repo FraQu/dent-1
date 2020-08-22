@@ -1,51 +1,60 @@
 {% extends 'website/main.html' %}
 {% block content %}
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <body>
     <p>
 
     </p>
     <!-- Contact Area -->
     <section class="">
         <div class="container">
+
             <div class="row">
                 <div class="col-12">
-                    <div class="google-maps mb-100">
+                    <div class="google-maps">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2323.1831644535987!2d18.582097551928168!3d54.38907968011369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd73bd51f21f8b%3A0x50c8a05c9778d809!2sWy%C5%BCsza%20Szko%C5%82a%20Bankowa%20w%20Gda%C5%84sku!5e0!3m2!1spl!2sbd!4v1596895701197!5m2!1spl!2sbd">
                         </iframe>
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <!-- Contact Form -->
-                <div class="col-12 col-md-8">
+                <div class="col-12">
                     <div class="contact-form">
                         <!-- Section Heading -->
-                        <div class="section-heading">
+                        <div class="section-heading text-center">
                             <h2>Contact Us</h2>
                             <div class="line"></div>
                         </div>
+
                         <!-- Form -->
                         <form action="{% url 'contact' %}" method="post">
                             {% csrf_token %}
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" name="message-name" class="form-control mb-30"
-                                           placeholder="Your Name" required>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-30">
+                                        <input type="text" name="message-name" class="form-control"
+                                               placeholder="Your Name" required>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <input type="email" name="message-email" class="form-control mb-30"
-                                           placeholder="Your Email" required>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-30">
+                                        <input type="email" name="message-email" class="form-control"
+                                               placeholder="Your Email" required>
+                                    </div>
                                 </div>
+
                                 <div class="col-12">
-                                    <textarea name="message" class="form-control mb-30" placeholder="Your Message"
+                                    <div class="form-group mb-30">
+                                    <textarea name="message" class="form-control" placeholder="Your Message"
                                               required></textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+
+                                <div class="col-12 text-center">
                                     <button type="submit" class="btn btn-primary">Send Message</button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
@@ -53,8 +62,5 @@
             </div>
         </div>
     </section>
-    <!-- Contact Area -->
-    </body>
-    </html>
 
 {% endblock %}

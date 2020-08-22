@@ -2,14 +2,14 @@
 
 {% block content %}
 
-    <p>{{  message_schedule }}</p>
-    <p>{{ message_name}}</p>
-    <p>{{essage_phone}}</p>
-    <p>{{message_email}}</p>
+    <p>{{ message_schedule }}</p>
+    <p>{{ message_name }}</p>
+    <p>{{ essage_phone }}</p>
+    <p>{{ message_email }}</p>
     <p>{{ message_address }}</p>
-    <p>{{message_date}}</p>
-    <p>{{message_time}}</p>
-    <p>{{message}}</p>
+    <p>{{ message_date }}</p>
+    <p>{{ message_time }}</p>
+    <p>{{ message }}</p>
 
     <!-- Book An Appointment -->
     <section class="">
@@ -17,7 +17,7 @@
             <div class="row">
                 <!-- Section Heading -->
                 <div class="col-12">
-                    <div class="section-heading text-center white">
+                    <div class="section-heading text-center">
                         <h2>Book An Appointment</h2>
                     </div>
                 </div>
@@ -26,72 +26,78 @@
             <div class="row">
                 <div class="col-12">
                     <!-- Appointment Form -->
-                    <div class="appointment-form">
-                        <form action="{% url 'appointment' %}" method="post">
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group mb-30">
-                                        <input type="text" name="message-name" class="form-control" placeholder="Your Name" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-30">
-                                        <input type="tel" name="message-phone" class="form-control" placeholder="Your Phone: +48123456789" required pattern="[+]{1}[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{3}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-30">
-                                        <input type="email" name="message-email" class="form-control" placeholder="Your Email" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-30">
-                                        <input type="text" name="message-address" class="form-control" placeholder="Your Address">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group mb-30">
-                                        <select name="message-date" class="form-control">
-                                            <option value="Choose Your Time">Choose Your Date Schedule</option>
-                                            <option value="Monday">Monday</option>
-                                            <option value="Tuesday">Tuesday</option>
-                                            <option value="Wednesday">Wednesday</option>
-                                            <option value="Thursday">Thursday</option>
-                                            <option value="Friday">Friday</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-30">
-                                        <select name="message-time" class="form-control">
-                                            <option value="Choose Your Schedule">Choose Your Schedule</option>
-                                            <option value="8 AM to 9 AM">8 AM to 9 AM</option>
-                                            <option value="9 AM to 10 AM">9 AM to 10 AM</option>
-                                            <option value="10 AM to 11 AM">10 AM to 11 AM</option>
-                                            <option value="11 AM to 12 PM">11 AM to 12 PM</option>
-                                            <option value="12 PM to 1 PM">12 PM to 1 PM</option>
-                                            <option value="1 PM to 2 PM">1 PM to 2 PM</option>
-                                            <option value="2 PM to 3 PM">2 PM to 3 PM</option>
-                                            <option value="3 PM to 4 PM">3 PM to 4 PM</option>
-                                            <option value="4 PM to 5 PM">4 PM to 5 PM</option>
-                                            <option value="5 PM to 6 PM">5 PM to 6 PM</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group mb-30">
-                                        <textarea name="message" class="form-control" placeholder="Your Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-primary mb-2">Book </button>
+                    <form action="{% url 'appointment' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-30">
+                                    <input type="text" name="message-name" class="form-control" placeholder="Your Name"
+                                           required>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-30">
+                                    <input type="tel" name="message-phone" class="form-control"
+                                           placeholder="Your Phone: +48123456789" required
+                                           pattern="[+]{1}[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{3}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-30">
+                                    <input type="email" name="message-email" class="form-control"
+                                           placeholder="Your Email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-30">
+                                    <input type="text" name="message-address" class="form-control"
+                                           placeholder="Your Address">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-30">
+                                    <select name="message-date" class="form-control">
+                                        <option value="Choose Your Time">Choose Your Date Schedule</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-30">
+                                    <select name="message-time" class="form-control">
+                                        <option value="Choose Your Schedule">Choose Your Schedule</option>
+                                        <option value="8 AM to 9 AM">8 AM to 9 AM</option>
+                                        <option value="9 AM to 10 AM">9 AM to 10 AM</option>
+                                        <option value="10 AM to 11 AM">10 AM to 11 AM</option>
+                                        <option value="11 AM to 12 PM">11 AM to 12 PM</option>
+                                        <option value="12 PM to 1 PM">12 PM to 1 PM</option>
+                                        <option value="1 PM to 2 PM">1 PM to 2 PM</option>
+                                        <option value="2 PM to 3 PM">2 PM to 3 PM</option>
+                                        <option value="3 PM to 4 PM">3 PM to 4 PM</option>
+                                        <option value="4 PM to 5 PM">4 PM to 5 PM</option>
+                                        <option value="5 PM to 6 PM">5 PM to 6 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group mb-30">
+                                    <textarea name="message" class="form-control" placeholder="Your Message"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary mb-2">Book</button>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
