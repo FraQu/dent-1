@@ -48,16 +48,20 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'contact' %}">Contact </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Register </a>
-            </li>
+            {% if request.user.is_anonymous %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register </a>
+                </li>
+            {% endif %}
         </ul>
     </div>
-    <span class="hello-msg">Hello, {{ request.user }}</span>
-    <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
+    {% if request.user.is_authenticated %}
+        <span class="hello-msg">Hello, {{ request.user }}</span>
+        <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
+    {% endif %}
 </nav>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
