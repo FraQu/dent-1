@@ -7,6 +7,8 @@ from .decorators import unauthenticated_user, allowed_users
 from .forms import CreateUserForm
 
 # Create your views here.
+from .models import *
+
 
 email_contact = ['contact@dent.com']
 
@@ -23,6 +25,11 @@ def register_page(request):
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='customer')
             user.groups.add(group)
+            Customer.objects.create(
+                user=user,
+                name=user.username,
+                email=user.email,
+            )
             messages.success(request, "Account was created for " + username)
             return redirect('login')
         else:
