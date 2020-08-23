@@ -4,7 +4,8 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 from .decorators import unauthenticated_user, allowed_users
-from .forms import CreateUserForm
+from django.contrib.auth.decorators import login_required
+from .forms import CreateUserForm, CustomerForm
 
 # Create your views here.
 from .models import *
@@ -39,7 +40,6 @@ def register_page(request):
     return render(request, 'website/register.html', context)
 
 
-@unauthenticated_user
 def login_page(request):
 
     if request.method == "POST":
@@ -64,6 +64,18 @@ def logout_user(request):
 
 def index(request):
     return render(request, 'website/index.html')
+
+
+@login_required(login_url='login')
+def user_profile(request):
+    customer = request.user.customer
+    form = CustomerForm(instance=customer)
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, request.FILES, instance=customer)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'website/user_profile.html', context)
 
 
 def contact(request):

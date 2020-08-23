@@ -127,6 +127,8 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/images/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/website/images')
+
 # Email Settings
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = '1025'
