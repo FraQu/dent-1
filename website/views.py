@@ -40,6 +40,7 @@ def register_page(request):
     return render(request, 'website/register.html', context)
 
 
+@unauthenticated_user
 def login_page(request):
 
     if request.method == "POST":
