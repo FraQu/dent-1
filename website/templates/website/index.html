@@ -8,92 +8,86 @@
             width: auto;
             filter: blur(8px);
         }
-        .text-on-bg {
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(202, 240, 248, 0.5);
-            color: white;
-            font-weight: bold;
-            border: 3px solid #f1f1f1;
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            width: 80%;
-            padding: 20px;
-            text-align: center;
-        }
-        .features {
-            position: relative;
-            top: 20px;
-        }
-
     </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'website/css/main.css' %}">
 
-<div class="intro">
+    <body>
     <div class="container">
-        <div class="background-img"><img src=""></div>
-        <div class="text-on-bg">
-            <h1> SYSTEM DO ZARZĄDZANIA GABINETEM STOMATOLOGICZNYM </h1>
+        <div class="intro">
+            <div class="container">
+                <div class="background-img"><img src=""></div>
+                <div class="text-on-bg">
+                    <h1> SYSTEM DO ZARZĄDZANIA GABINETEM STOMATOLOGICZNYM </h1>
+                </div>
+            </div>
+        </div>
+        <div class="features">
+            <div class="container">
+                <h2 align="center" style="color:#38b6ff;">CECHY PRODUKTU </h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-card-text" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                            <path fill-rule="evenodd"
+                                  d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        <h5>Dokumentacja medyczna </h5>
+                        <p>Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-card-text" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                            <path fill-rule="evenodd"
+                                  d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        <h5>Dostępnosc</h5>
+                        <p>Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-card-text" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                            <path fill-rule="evenodd"
+                                  d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        <h5>Rejestracja online</h5>
+                        <p>Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-card-text" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                            <path fill-rule="evenodd"
+                                  d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        <h5>Oszczędność</h5>
+                        <p>Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                            Some description of above feature.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="features">
-    <div class="container">
-        <h2 align="center" style="color:#38b6ff;">CECHY PRODUKTU </h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-card-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                        <path fill-rule="evenodd" d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                    <h5>Dokumentacja medyczna </h5>
-                    <p>Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-                    </p>
-                </div>
-                <div class="col-md-3">
-                    <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-card-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                        <path fill-rule="evenodd" d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                    <h5>Dostępnosc</h5>
-                    <p>Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-                    </p>
-                </div>
-                <div class="col-md-3">
-                    <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-card-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                        <path fill-rule="evenodd" d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                    <h5>Rejestracja online</h5>
-                    <p>Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-                    </p>
-                </div>
-                <div class="col-md-3">
-
-                    <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
-
-                    <h5>Oszczędność</h5>
-                    <p>Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-                        Some description of above feature.
-
-                    </p>
-
-                </div>
-        </div>
-    </div>
-</div>
-
-
+    </body>
 {% endblock %}
