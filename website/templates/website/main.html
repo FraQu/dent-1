@@ -18,21 +18,26 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'home' %}">Home </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Our team </a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    Services
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Dental surgery</a>
+                    <a class="dropdown-item" href="#">Implants</a>
+                    <a class="dropdown-item" href="#">Root canal treatment</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">For Doctors</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -57,7 +62,7 @@
         </ul>
     </div>
     {% if request.user.is_authenticated %}
-        <span class="hello-msg">Hello, {{ request.user }}</span>
+        <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ request.user }}</a></span>
         <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
     {% endif %}
 </nav>
