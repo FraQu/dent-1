@@ -15,9 +15,6 @@
                     <form method="POST">
                         {% csrf_token %}
 
-                        <div class="input-group mb-3">
-                            <input type="text" name="username" placeholder="Username..." class="form-control">
-                        </div>
                         <div class="input-group mb-2">
                             <input type="email" name="email" placeholder="Email..." class="form-control">
                         </div>
@@ -37,15 +34,19 @@
 
                 <div class="mt-4">
                     <div class="d-flex justify-content-center">
-                        {% for message in messages %}
-                            <p class="" id="messages">{{ message }}</p>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                <p class="" id="messages">{{ error|escape }}</p>
+                                </div>
+                            {% endfor %}
                         {% endfor %}
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <div class="d-flex justify-content-center">
-                        Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+                        Already have an account? <a href="#" class="ml-2">Login</a>
                     </div>
                 </div>
             </div>

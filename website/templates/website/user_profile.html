@@ -11,8 +11,9 @@
                     <hr>
                     <h3 style="text-align: center">Account Settings</h3>
                     <hr>
-                    <img alt="User picture" class="profile-pic" src="{{ request.user.customer.profile_pic.url }}">
-
+                    {% if request.user.profile.profile_pic.url is not null %}
+                        <img alt="User picture" class="profile-pic" src="{{ request.user.profile.profile_pic.url }}">
+                    {% endif %}
                 </div>
             </div>
             <div class="col col-lg-6">
@@ -21,7 +22,6 @@
                     <form method="POST" action="" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
-
                         <input class="btn btn-primary" type="submit" value="Update Information">
                     </form>
                 </div>

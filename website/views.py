@@ -1,82 +1,56 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.core.mail import send_mail
-from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
-from .decorators import unauthenticated_user, allowed_users
-from django.contrib.auth.decorators import login_required
-from .forms import CreateUserForm, CustomerForm
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, FormView
 
-# Create your views here.
-from .models import *
-
+from .forms import RegisterForm, LoginForm, UserProfileForm
 
 email_contact = ['contact@dent.com']
-
-
-@unauthenticated_user
-def register_page(request):
-    form = CreateUserForm()
-
-    if request.method == "POST":
-        form = CreateUserForm(request.POST)
-
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            group = Group.objects.get(name='customer')
-            user.groups.add(group)
-            Customer.objects.create(
-                user=user,
-                name=user.username,
-                email=user.email,
-            )
-            messages.success(request, "Account was created for " + username)
-            return redirect('login')
-        else:
-            messages.info(request, "Invalid data in field.")
-
-    context = {'form': form}
-    return render(request, 'website/register.html', context)
-
-
-@unauthenticated_user
-def login_page(request):
-
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.info(request, 'Username OR password is incorrect')
-
-    context = {}
-    return render(request, 'website/login.html', context)
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('home')
 
 
 def index(request):
     return render(request, 'website/index.html')
 
 
-@login_required(login_url='login')
-def user_profile(request):
-    customer = request.user.customer
-    form = CustomerForm(instance=customer)
-    if request.method == 'POST':
-        form = CustomerForm(request.POST, request.FILES, instance=customer)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'website/user_profile.html', context)
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    success_url = '/login'
+    template_name = 'website/register.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.success_url)
+        return super().get(request, *args, **kwargs)
+
+
+class LoginView(FormView):
+    form_class = LoginForm
+    success_url = '/'
+    template_name = 'website/login.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.success_url)
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        request = self.request or None
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password')
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user,)
+            return redirect('home')
+        else:
+            messages.info(request, 'email OR password is incorrect')
+        return super(LoginView, self).form_invalid(form)
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
 
 def contact(request):
@@ -134,3 +108,14 @@ def appointment(request):
                        })
     else:
         return render(request, 'website/appointment.html')
+
+
+def user_profile(request):
+    userprofile = request.user.profile
+    form = UserProfileForm(instance=userprofile)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'website/user_profile.html', context)
