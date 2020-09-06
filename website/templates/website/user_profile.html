@@ -14,7 +14,8 @@
                     {% if request.user.profile.profile_pic.url is not null %}
                         <img alt="User picture" class="profile-pic" src="{{ request.user.profile.profile_pic.url }}">
                     {% else %}
-                        <img alt="User picture" class="profile-pic" src="{% static 'website/images/default_profile_photo.png' %}">
+                        <img alt="User picture" class="profile-pic"
+                             src="{% static 'website/images/default_profile_photo.png' %}">
                     {% endif %}
 
                 </div>

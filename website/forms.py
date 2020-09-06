@@ -5,7 +5,6 @@ from .models import UserProfile, User
 
 
 class UserAdminCreationForm(forms.ModelForm):
-
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
@@ -90,4 +89,3 @@ class UserProfileForm(forms.ModelForm):
 
 
 User = get_user_model()
-
