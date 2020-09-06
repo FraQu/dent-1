@@ -29,6 +29,7 @@ class UserAdminCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
+            UserProfile.objects.create(email=user)
         return user
 
 

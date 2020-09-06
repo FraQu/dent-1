@@ -77,7 +77,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')), blank=True)
     age = models.PositiveIntegerField(null=True, blank=True)
     phone = models.CharField(max_length=255, null=True, blank=True)
-    profile_pic = models.ImageField(default="default_profile_photo.png", null=True, blank=True)
+    profile_pic = models.ImageField(null=True, blank=True)
 
     objects = UserManager()
 
