@@ -82,9 +82,8 @@ class UserProfile(models.Model):
     objects = UserManager()
 
     def __str__(self):
-        return self.email.email
+        return str(self.email)
 
     class Meta:
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
-

@@ -41,7 +41,7 @@ class LoginView(FormView):
         password = form.cleaned_data.get('password')
         user = authenticate(request, username=email, password=password)
         if user is not None:
-            login(request, user,)
+            login(request, user, )
             return redirect('home')
         else:
             messages.info(request, 'email OR password is incorrect')
@@ -54,7 +54,6 @@ def logout_user(request):
 
 
 def contact(request):
-
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']
@@ -76,7 +75,6 @@ def contact(request):
 
 
 def appointment(request):
-
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']

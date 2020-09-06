@@ -64,7 +64,7 @@
     {% if request.user.is_authenticated %}
         {% if user.profile.full_name is not null %}
             <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.full_name }}</a></span>
-            {% else %}
+        {% else %}
             <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.email }}</a></span>
         {% endif %}
         <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
