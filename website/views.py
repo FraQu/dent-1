@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, FormView
+from django.views.generic import CreateView, FormView, UpdateView
 
 from .forms import RegisterForm, LoginForm, UserProfileForm
 
@@ -110,12 +110,10 @@ def appointment(request):
         return render(request, 'website/appointment.html')
 
 
-def user_profile(request):
-    userprofile = request.user.profile
-    form = UserProfileForm(instance=userprofile)
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'website/user_profile.html', context)
+class UserProfileView(UpdateView):
+    form_class = UserProfileForm
+    template_name = 'website/user_profile.html'
+    success_url = '/user_profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
