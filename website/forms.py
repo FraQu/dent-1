@@ -82,9 +82,15 @@ class RegisterForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    full_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    gender = forms.TypedChoiceField(choices=(('M', 'Male'), ('F', 'Female')),
+                                    widget=forms.Select(attrs={'class': 'form-control'}))
+    age = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ('full_name', 'gender', 'age', 'phone', 'profile_pic',)
         exclude = ['user']
 
 
