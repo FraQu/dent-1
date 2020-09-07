@@ -85,5 +85,5 @@ class UserProfile(models.Model):
         return str(self.email)
 
     class Meta:
-        verbose_name = 'Profile'
-        verbose_name_plural = 'Profiles'
+        verbose_name = 'profile'
+        verbose_name_plural = 'profiles'
