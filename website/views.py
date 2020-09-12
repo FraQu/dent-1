@@ -17,7 +17,7 @@ def index(request):
 class RegisterView(CreateView):
     form_class = RegisterForm
     success_url = '/login'
-    template_name = 'website/register.html'
+    template_name = 'registration/register.html'
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -28,7 +28,7 @@ class RegisterView(CreateView):
 class LoginView(FormView):
     form_class = LoginForm
     success_url = '/'
-    template_name = 'website/login.html'
+    template_name = 'registration/login.html'
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
