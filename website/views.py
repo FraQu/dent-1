@@ -40,7 +40,7 @@ class LoginView(FormView):
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
         user = authenticate(request, username=email, password=password)
-        if user is not None:
+        if user and password is not None:
             login(request, user, )
             return redirect('home')
         else:
@@ -115,3 +115,4 @@ class UserProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+

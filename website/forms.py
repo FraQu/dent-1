@@ -39,6 +39,8 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.ModelForm):
     """Register Form based on email and password."""
+    email = forms.EmailField(label='Email')
+
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
@@ -50,7 +52,7 @@ class RegisterForm(forms.ModelForm):
         """Check passwords fields."""
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
-        if not password1:
+        if password1 == '':
             raise forms.ValidationError("Fill first password field.")
         if password2 is None:
             raise forms.ValidationError("Fill second password field.")
@@ -62,7 +64,7 @@ class RegisterForm(forms.ModelForm):
         """Check email field."""
         email = self.cleaned_data.get('email')
         email_ex = User.objects.filter(email=email)
-        if not email:
+        if email is None:
             raise forms.ValidationError("Fill email field.")
         if email_ex.exists():
             raise forms.ValidationError(f"{email} - this email is already taken.")
