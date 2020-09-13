@@ -3,9 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, FormView, UpdateView
+from django.views.generic import CreateView, FormView, UpdateView, DetailView, ListView
+from .models import StaffProfile
 
-from .forms import RegisterForm, LoginForm, UserProfileForm
+from .forms import RegisterForm, LoginForm, UserProfileForm, StaffProfileForm
 
 email_contact = ['contact@dent.com']
 
@@ -116,3 +117,16 @@ class UserProfileView(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user.profile
 
+
+class StaffProfileView(UpdateView):
+    form_class = StaffProfileForm
+    template_name = 'website/staff_profile.html'
+    success_url = '/staff_profile'
+
+    def get_object(self, queryset=None):
+        return self.request.user.staff_profile
+
+
+class OurTeamView(ListView):
+    model = StaffProfile
+    template_name = 'website/our_team.html'

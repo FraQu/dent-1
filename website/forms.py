@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from .models import UserProfile, User
+from .models import UserProfile, User, StaffProfile
 
 
 class UserAdminCreationForm(forms.ModelForm):
@@ -93,6 +93,20 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('full_name', 'gender', 'birth_date', 'phone', 'profile_pic',)
+        exclude = ['user']
+
+
+class StaffProfileForm(forms.ModelForm):
+    full_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    gender = forms.TypedChoiceField(choices=StaffProfile.gender_choice,
+                                    widget=forms.Select(attrs={'class': 'form-control'}))
+    birth_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = UserProfile
+        fields = ('full_name', 'gender', 'birth_date', 'phone', 'bio', 'profile_pic',)
         exclude = ['user']
 
 

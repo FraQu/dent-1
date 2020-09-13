@@ -9,21 +9,19 @@
                 <div class="card card-body">
                     <a class="btn btn-secondary" href="{% url 'home' %}"> &#8592; Back to Home Page</a>
                     <hr>
-                    <h3 style="text-align: center">Account Settings</h3>
+                    <h3 style="text-align: center">Profile Information</h3>
                     <hr>
                     {% if request.user.profile.profile_pic.url is not null %}
-                        <img alt="User picture" class="profile-pic" src="{{ request.user.profile.profile_pic.url }}">
+                        <img alt="User picture" class="bd-placeholder-img card-img-top" src="{{ request.user.profile.profile_pic.url }}">
                     {% else %}
-                        <img alt="User picture" class="profile-pic"
+                        <img alt="User picture" class="bd-placeholder-img card-img-top"
                              src="{% static 'website/images/default_profile_photo.png' %}">
                     {% endif %}
-
                 </div>
             </div>
             <div class="col col-lg-6">
                 <div class="card card-body">
-
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input class="btn btn-primary" type="submit" value="Update Profile">
