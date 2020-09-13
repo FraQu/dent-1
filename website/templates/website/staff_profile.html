@@ -11,9 +11,9 @@
                     <hr>
                     <h3 style="text-align: center">Profile Information</h3>
                     <hr>
-                    {% if request.user.profile.profile_pic.url is not null %}
+                    {% if request.user.staff_profile.profile_pic.url is not null %}
                         <img alt="User picture" class="bd-placeholder-img card-img-top"
-                             src="{{ request.user.profile.profile_pic.url }}">
+                             src="{{ request.user.staff_profile.profile_pic.url }}">
                     {% else %}
                         <img alt="User picture" class="bd-placeholder-img card-img-top"
                              src="{% static 'website/images/default_profile_photo.png' %}">

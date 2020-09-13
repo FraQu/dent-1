@@ -25,7 +25,7 @@
                 <a class="nav-link" href="{% url 'home' %}">Home </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Our team </a>
+                <a class="nav-link" href="{% url 'our_team' %}">Our team </a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -55,14 +55,27 @@
                 </li>
                 <span></span>
                 <li class="nav-item">
-                    <a class="btn btn-primary mr-1" href="{% url 'register' %}">Register </a>
+                    <a class="btn btn-dark mr-1" href="{% url 'register' %}">Register </a>
                 </li>
             {% endif %}
 
         </ul>
     </div>
     {% if request.user.is_authenticated %}
-        <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ request.user }}</a></span>
+        {% if request.user.staff_profile.full_name %}
+            <span><a class="hello-msg"
+                     href="{% url 'staff_profile' %}">Hello, {{ user.staff_profile.full_name }}</a></span>
+        {% elif request.user.staff_profile.email %}
+            <span><a class="hello-msg" href="{% url 'staff_profile' %}">Hello, {{ user.staff_profile.email }}</a></span>
+        {% elif request.user.profile.full_name %}
+            <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.full_name }}</a></span>
+        {% elif request.user.profile.email %}
+            <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.email }}</a></span>
+
+        {% else %}
+            <span><a class="hello-msg" href="#">Hello, {{ user.email }}</a></span>
+        {% endif %}
+
         <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
     {% endif %}
 </nav>
