@@ -3,10 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, FormView, UpdateView, DetailView, ListView
-from .models import StaffProfile
+from django.views.generic import CreateView, FormView, UpdateView, ListView
 
 from .forms import RegisterForm, LoginForm, UserProfileForm, StaffProfileForm
+from .models import StaffProfile
 
 email_contact = ['contact@dent.com']
 
