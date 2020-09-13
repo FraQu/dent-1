@@ -84,11 +84,11 @@ class RegisterForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    full_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    full_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
     gender = forms.TypedChoiceField(choices=UserProfile.gender_choice,
                                     widget=forms.Select(attrs={'class': 'form-control'}))
     birth_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = UserProfile

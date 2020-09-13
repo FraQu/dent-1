@@ -29,9 +29,13 @@ class UserAdmin(DjangoUserAdmin):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
+    """Define UserProfile model for custom User model."""
+    readonly_fields = ('updated_date',)
+
     fieldsets = (
         (None, {'fields': ('email',)}),
         (_('Personal info'), {'fields': ('full_name', 'phone', 'birth_date', 'gender')}),
+        (_('Important dates'), {'fields': ('updated_date',)}),
     )
     add_fieldsets = (
         (None, {
