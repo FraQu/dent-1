@@ -77,10 +77,9 @@ class UserProfile(models.Model):
     gender_choice = (('M', 'Male'), ('F', 'Female'))
     gender = models.CharField(max_length=1, choices=gender_choice, blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    phone = models.CharField(max_length=255, null=True, blank=True)
+    phone = models.CharField(max_length=9, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateField(auto_now_add=True)
+    updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
 
     objects = UserManager()
 
