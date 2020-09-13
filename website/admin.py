@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
-from .models import User, UserProfile
+from .models import User, UserProfile, StaffProfile
 
 
 @admin.register(User)
@@ -45,6 +45,25 @@ class UserProfileAdmin(admin.ModelAdmin):
     )
     list_display = ('email', 'full_name', 'phone', 'birth_date', 'gender')
     search_fields = ('email', 'full_name')
+    ordering = ('email',)
+
+
+@admin.register(StaffProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    """Define StaffProfile model for custom User model."""
+
+    fieldsets = (
+        (None, {'fields': ('email',)}),
+        (_('Personal info'), {'fields': ('full_name', 'phone', 'birth_date', 'gender', 'bio',)}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2'),
+        }),
+    )
+    list_display = ('email', 'bio',)
+    search_fields = ('email',)
     ordering = ('email',)
 
 
