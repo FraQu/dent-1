@@ -74,10 +74,13 @@ class UserProfile(models.Model):
     username = None
     email = models.OneToOneField(User, related_name='profile', null=True, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255, null=True, blank=True)
-    gender = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')), blank=True)
-    age = models.PositiveIntegerField(null=True, blank=True)
+    gender_choice = (('M', 'Male'), ('F', 'Female'))
+    gender = models.CharField(max_length=1, choices=gender_choice, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
     phone = models.CharField(max_length=255, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateField(auto_now_add=True)
 
     objects = UserManager()
 

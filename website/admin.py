@@ -31,7 +31,7 @@ class UserAdmin(DjangoUserAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('email',)}),
-        (_('Personal info'), {'fields': ('full_name', 'phone', 'age', 'gender')}),
+        (_('Personal info'), {'fields': ('full_name', 'phone', 'birth_date', 'gender')}),
     )
     add_fieldsets = (
         (None, {
@@ -39,7 +39,7 @@ class UserProfileAdmin(admin.ModelAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'full_name', 'phone', 'age', 'gender')
+    list_display = ('email', 'full_name', 'phone', 'birth_date', 'gender')
     search_fields = ('email', 'full_name')
     ordering = ('email',)
 
