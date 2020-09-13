@@ -24,3 +24,6 @@
 8. Migrate project Database `python manage.py migrate`
 9. Create Super User `python manage.py createsuperuser`
 10. Finally Run The Project `python manage.py runserver`
+
+##### Troubleshooting
+1. Database is not updating `python manage.py migrate --run-syncdb`
