@@ -1,26 +1,21 @@
 {% extends 'website/main.html' %}
 {% load static %}
 {% block content %}
-    <style>
-        .background-img {
-            background-image: url({% static 'website/images/teeth.png'%});
-            height: 400px;
-            width: auto;
-            filter: blur(8px);
-        }
-    </style>
+
     <link rel="stylesheet" type="text/css" href="{% static 'website/css/main.css' %}">
 
     <body>
-    <div class="container">
-        <div class="intro">
-            <div class="container">
-                <div class="background-img"><img src=""></div>
-                <div class="text-on-bg">
-                    <h1> SYSTEM DO ZARZĄDZANIA GABINETEM STOMATOLOGICZNYM </h1>
-                </div>
+        <header>
+            <!--banner-->
+            <div class="text-light text-md-right text-center banner">
+                <h1 class="display-4 banner-heading">Welcome to eDent Office</h1>
+                <p class="lead banner-par">The best online Dentist System for your Dentist Office</p>
             </div>
-        </div>
+            <!--end of banner-->
+
+        </header>
+
+    <div class="container">
         <div class="features">
             <div class="container">
                 <h2  class="display-3 text-primary text-center">CECHY PRODUKTU </h2>
