@@ -5,17 +5,17 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col col-lg-5">
+            <div class="col-lg-5">
                 <div class="card card-body">
                     <a class="btn btn-secondary" href="{% url 'home' %}"> &#8592; Back to Home Page</a>
                     <hr>
                     <h3 style="text-align: center">Profile Information</h3>
                     <hr>
                     {% if request.user.staff_profile.profile_pic.url is not null %}
-                        <img alt="User picture" class="bd-placeholder-img card-img-top"
+                        <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
                              src="{{ request.user.staff_profile.profile_pic.url }}">
                     {% else %}
-                        <img alt="User picture" class="bd-placeholder-img card-img-top"
+                        <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
                              src="{% static 'website/images/default_profile_photo.png' %}">
                     {% endif %}
                 </div>

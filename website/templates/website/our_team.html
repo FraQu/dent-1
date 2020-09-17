@@ -6,12 +6,10 @@
 
     <div class="album py-5">
         <div class="container">
-
             <div class="row">
-
                 {% for staffprofile in object_list %}
                     <div class="col-md-4">
-                        <div class="card card-body">
+                        <div class="card mb-4 shadow-sm">
                             {% if staffprofile.profile_pic.url is not null %}
                                 <img class="bd-placeholder-img card-img-top"
                                      src="{{ staffprofile.profile_pic.url }}"/>
@@ -20,7 +18,7 @@
                                      src="{% static 'website/images/default_profile_photo.png' %}">
                             {% endif %}
                             <div class="card-body">
-                                <h3 class="">
+                                <h3 style="text-align: center">
                                     <p class="card-text">{{ staffprofile.full_name }}</p></h3>
                                 <hr>
                                 <p class="card-text">{{ staffprofile.bio }}</p>
