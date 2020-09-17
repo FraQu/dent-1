@@ -1,8 +1,7 @@
 from django.urls import path
 
-from website.views import RegisterView, LoginView, UserProfileView, OurTeamView, StaffProfileView
+from website.views import RegisterView, LoginView, CustomerView, OurTeamView, EmployeeView
 from . import views
-from .decorators import login_required
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -11,8 +10,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('contact/', views.contact, name='contact'),
     path('appointment/', views.appointment, name='appointment'),
-    path('user_profile/', login_required(UserProfileView.as_view()), name='user_profile'),
-    path('staff_profile/', login_required(StaffProfileView.as_view()), name='staff_profile'),
+    path('user_profile/', CustomerView.as_view(), name='user_profile'),
+    path('staff_profile/', EmployeeView.as_view(), name='staff_profile'),
     path('our_team/', OurTeamView.as_view(), name='our_team'),
 
 ]

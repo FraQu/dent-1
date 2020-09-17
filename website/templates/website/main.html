@@ -58,17 +58,27 @@
         </ul>
     </div>
     {% if request.user.is_authenticated %}
-        {% if request.user.staff_profile.full_name %}
-            <span><a class="hello-msg"
-                     href="{% url 'staff_profile' %}">Hello, {{ user.staff_profile.full_name }}</a></span>
-        {% elif request.user.staff_profile.email %}
-            <span><a class="hello-msg" href="{% url 'staff_profile' %}">Hello, {{ user.staff_profile.email }}</a></span>
-        {% elif request.user.profile.full_name %}
-            <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.full_name }}</a></span>
-        {% elif request.user.profile.email %}
-            <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.email }}</a></span>
+        <span class="hello-msg"> Hello,</span>
+        {% if request.user.employee.full_name %}
+            <li class="dropdown hello-msg">
+                <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    {{ user.employee.full_name }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
+                    <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
+                </div>
+            </li>
+        {% elif request.user.employee.email %}
+            <span><a class="hello-msg" href="{% url 'staff_profile' %}">{{ user.employee.email }}</a></span>
+        {% elif request.user.customer.full_name %}
+            <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.full_name }}</a></span>
+        {% elif request.user.customer.email %}
+            <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.email }}</a></span>
         {% else %}
-            <span><a class="hello-msg" href="#">Hello, {{ user.email }}</a></span>
+            <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
         {% endif %}
         <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
     {% endif %}

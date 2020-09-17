@@ -3,10 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, FormView, UpdateView, ListView
 
-from .forms import RegisterForm, LoginForm, UserProfileForm, StaffProfileForm
-from .models import StaffProfile
+from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm
+from .decorators import login_required, customer_required, employee_required
+from .models import Employee
 
 email_contact = ['contact@dent.com']
 
@@ -19,6 +21,10 @@ class RegisterView(CreateView):
     form_class = RegisterForm
     success_url = '/login'
     template_name = 'registration/register.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'customer'
+        return super().get_context_data(**kwargs)
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -109,24 +115,26 @@ def appointment(request):
         return render(request, 'website/appointment.html')
 
 
-class UserProfileView(UpdateView):
-    form_class = UserProfileForm
+@method_decorator([login_required, customer_required], name='dispatch')
+class CustomerView(UpdateView):
+    form_class = CustomerForm
     template_name = 'website/user_profile.html'
     success_url = '/user_profile'
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        return self.request.user.customer
 
 
-class StaffProfileView(UpdateView):
-    form_class = StaffProfileForm
+@method_decorator([login_required, employee_required], name='dispatch')
+class EmployeeView(UpdateView):
+    form_class = EmployeeForm
     template_name = 'website/staff_profile.html'
     success_url = '/staff_profile'
 
     def get_object(self, queryset=None):
-        return self.request.user.staff_profile
+        return self.request.user.employee
 
 
 class OurTeamView(ListView):
-    model = StaffProfile
+    model = Employee
     template_name = 'website/our_team.html'
