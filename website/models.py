@@ -51,11 +51,8 @@ class User(AbstractUser):
     """Custom User model based on Django User model."""
     username = None
     email = models.EmailField(max_length=255, unique=True)
-    full_name = models.CharField(max_length=255, null=True, blank=True)
-    active = models.BooleanField(default=False)
-    admin = models.BooleanField(default=False)
-    staff = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    is_customer = models.BooleanField(default=False, null=True, blank=True)
+    is_employee = models.BooleanField(default=False, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -69,38 +66,33 @@ class User(AbstractUser):
         return self.email
 
 
-class UserProfile(models.Model):
+class Customer(models.Model):
     """User profile model."""
     username = None
-    email = models.OneToOneField(User, related_name='profile', null=True, on_delete=models.CASCADE)
+    email = models.OneToOneField(User, related_name='customer', null=True, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255, null=True, blank=True)
-    gender_choice = (('M', 'Male'), ('F', 'Female'))
-    gender = models.CharField(max_length=1, choices=gender_choice, blank=True)
+    gender_choice = (('-', '---',), ('M', 'Male'), ('F', 'Female'))
+    gender = models.CharField(max_length=1, choices=gender_choice, default='-', blank=True)
     birth_date = models.DateField(null=True, blank=True)
     phone = models.CharField(max_length=9, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
-
     objects = UserManager()
 
     def __str__(self):
         return str(self.email)
 
     class Meta:
-        verbose_name = 'profile'
-        verbose_name_plural = 'profiles'
+        verbose_name = 'customer'
+        verbose_name_plural = 'customers'
 
 
-class StaffProfile(models.Model):
+class Employee(models.Model):
     """Staff info model."""
     username = None
-    email = models.OneToOneField(User, related_name='staff_profile', null=True, on_delete=models.CASCADE)
+    email = models.OneToOneField(User, related_name='employee', null=True, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255, null=True, blank=True)
-    gender_choice = (('M', 'Male'), ('F', 'Female'))
-    gender = models.CharField(max_length=1, choices=gender_choice, blank=True)
     bio = models.TextField(null=True, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    phone = models.CharField(max_length=9, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
 
@@ -110,5 +102,5 @@ class StaffProfile(models.Model):
         return str(self.email)
 
     class Meta:
-        verbose_name = 'staff profile'
-        verbose_name_plural = 'staff profiles'
+        verbose_name = 'employee'
+        verbose_name_plural = 'employees'

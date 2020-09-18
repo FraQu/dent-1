@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.db import transaction
 
-from .models import UserProfile, User, StaffProfile
+from .models import Customer, User
 
 
 class UserAdminCreationForm(forms.ModelForm):
@@ -28,7 +29,6 @@ class UserAdminCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
-            UserProfile.objects.create(email=user)
         return user
 
 
@@ -72,41 +72,39 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError("Fill email field.")
         return email
 
+    @transaction.atomic
     def save(self, commit=True):
         """Save email and password as User."""
         user = super(RegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         user.active = True
+        user.is_customer = True
         if commit:
             user.save()
-            UserProfile.objects.create(email=user)
+            Customer.objects.create(email=user)
         return user
 
 
-class UserProfileForm(forms.ModelForm):
+class CustomerForm(forms.ModelForm):
     full_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    gender = forms.TypedChoiceField(choices=UserProfile.gender_choice,
+    gender = forms.TypedChoiceField(choices=Customer.gender_choice,
                                     widget=forms.Select(attrs={'class': 'form-control'}))
     birth_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     phone = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
-        model = UserProfile
+        model = Customer
         fields = ('full_name', 'gender', 'birth_date', 'phone', 'profile_pic',)
         exclude = ['user']
 
 
-class StaffProfileForm(forms.ModelForm):
+class EmployeeForm(forms.ModelForm):
     full_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    gender = forms.TypedChoiceField(choices=StaffProfile.gender_choice,
-                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    birth_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    phone = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'class': 'form-control'}))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
 
     class Meta:
-        model = UserProfile
-        fields = ('full_name', 'gender', 'birth_date', 'phone', 'bio', 'profile_pic',)
+        model = Customer
+        fields = ('full_name', 'bio', 'profile_pic',)
         exclude = ['user']
 
 

@@ -27,14 +27,6 @@ header {
     color: #70aed2;
 }
 
-.btn{
-    transition: all .2s ease-in-out;
-    }
-.btn:hover{
-    background-color: transparent;
-    transform: scale(1.5);
-}
-
 .dropdown-item{
     font-size: 15px;
     letter-spacing: 1px;
