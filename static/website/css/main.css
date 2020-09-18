@@ -6,6 +6,67 @@ body {
     background-color: #ebeff5
 }
 
+header {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
+                url("/static/website/images/doctor_bg.jpg") no-repeat center center /cover;
+}
+
+.nav-menu {
+    background: linear-gradient(rgba(0,0,0, .5), rgba(0,0,0, .0));
+    padding: 15px;
+}
+
+.menu-item{
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #eee;
+    transition: color .3s;
+}
+.menu-item:hover{
+    color: #70aed2;
+}
+
+.dropdown-item{
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #eee;
+}
+.dropdown-menu{
+    background: linear-gradient(rgba(0,0,0, .0), rgba(0,0,0, .5));
+}
+
+.banner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%
+}
+
+.banner-heading {
+    animation-name: anim;
+    animation-duration: 2s;
+    }
+
+.banner-par{
+    animation-name: anim;
+    animation-duration: 2s;
+    animation-delay: .5s;
+    animation-fill-mode: backwards;
+}
+
+@keyframes anim{
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 .hello-msg {
     font-size: 18px;
     color: #fff;
