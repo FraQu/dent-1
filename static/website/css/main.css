@@ -26,6 +26,37 @@ header {
 .menu-item:hover{
     color: #70aed2;
 }
+a.hello-msg{
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #eee;
+    transition: color .3s;
+}
+a.logout-msg {
+    color: #70aed2
+}
+.btn{
+    transition: all .2s ease-in-out;
+    }
+.btn:hover{
+    background-color: transparent;
+    transform: scale(1.5);
+}
+.line1, .line2, .line3{
+    width: 23px;
+    height: 3px;
+    margin: 5px;
+    transition: all .4s;
+}
+.change .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+ }
+.change .line2{
+    opacity:0;
+}
+.change .line3{
+    transform: rotate(45deg) translate(-5px, -6px);
+}
 
 .dropdown-item{
     font-size: 15px;
@@ -99,4 +130,11 @@ header {
 .features {
     position: relative;
     top: 20px;
+}
+
+/* LOGIN.HTML stylesheet */
+
+.login-box{
+    padding: 150px;
+    height: 300px;
 }
