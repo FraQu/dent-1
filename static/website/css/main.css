@@ -8,35 +8,76 @@ body {
 
 header {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
-                url("/static/website/images/doctor_bg.jpg") no-repeat center center /cover;
+    background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .5)),
+    url("/static/website/images/doctor_bg.jpg") no-repeat center center /cover;
 }
 
 .nav-menu {
-    background: linear-gradient(rgba(0,0,0, .5), rgba(0,0,0, .0));
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .0));
     padding: 15px;
 }
 
-.menu-item{
+.menu-item {
     font-size: 15px;
     letter-spacing: 1px;
     color: #eee;
     transition: color .3s;
 }
-.menu-item:hover{
+
+.menu-item:hover {
     color: #70aed2;
 }
 
-.dropdown-item{
+a.hello-msg {
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #eee;
+    transition: color .3s;
+}
+
+a.logout-msg {
+    color: #70aed2
+}
+
+.btn {
+    transition: all .2s ease-in-out;
+}
+
+.btn:hover {
+    background-color: transparent;
+    transform: scale(1.5);
+}
+
+.line1, .line2, .line3 {
+    width: 23px;
+    height: 3px;
+    margin: 5px;
+    transition: all .4s;
+}
+
+.change .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.change .line2 {
+    opacity: 0;
+}
+
+.change .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.dropdown-item {
     font-size: 15px;
     letter-spacing: 1px;
     color: #eee;
 }
-.dropdown-menu{
-    background: linear-gradient(rgba(0,0,0, .0), rgba(0,0,0, .5));
+
+.dropdown-menu {
+    background: linear-gradient(rgba(0, 0, 0, .0), rgba(0, 0, 0, .5));
 }
 
-.banner{
+.banner {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -47,21 +88,21 @@ header {
 .banner-heading {
     animation-name: anim;
     animation-duration: 2s;
-    }
+}
 
-.banner-par{
+.banner-par {
     animation-name: anim;
     animation-duration: 2s;
     animation-delay: .5s;
     animation-fill-mode: backwards;
 }
 
-@keyframes anim{
+@keyframes anim {
     0% {
         transform: translateX(-100px);
         opacity: 0;
     }
-    100%{
+    100% {
         transform: translateX(0);
         opacity: 1;
     }
@@ -100,3 +141,15 @@ header {
     position: relative;
     top: 20px;
 }
+
+/* LOGIN.HTML stylesheet */
+
+.login-box, .register-box {
+    padding: 150px;
+    height: 300px;
+}
+
+.form {
+    opacity: 0.8;
+}
+

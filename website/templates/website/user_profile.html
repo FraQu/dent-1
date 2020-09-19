@@ -2,34 +2,35 @@
 {% load static %}
 {% block content %}
 
-    <br>
-    <div class="container">
-        <div class="row">
-            <div class="col col-lg-5">
-                <div class="card card-body">
-                    <a class="btn btn-secondary" href="{% url 'home' %}"> &#8592; Back to Home Page</a>
-                    <hr>
-                    <h3 style="text-align: center">Profile Information</h3>
-                    <hr>
-                    {% if request.user.profile.profile_pic.url is not null %}
-                        <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
-                             src="{{ request.user.profile.profile_pic.url }}">
-                    {% else %}
-                        <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
-                             src="{% static 'website/images/default_profile_photo.png' %}">
-                    {% endif %}
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-5">
+                    <div class="card card-body">
+                        <a class="btn btn-secondary" href="{% url 'home' %}"> &#8592; Back to Home Page</a>
+                        <hr>
+                        <h3 style="text-align: center">Profile Information</h3>
+                        <hr>
+                        {% if request.user.profile.profile_pic.url is not null %}
+                            <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
+                                 src="{{ request.user.profile.profile_pic.url }}">
+                        {% else %}
+                            <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
+                                 src="{% static 'website/images/default_profile_photo.png' %}">
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-            <div class="col col-lg-6">
-                <div class="card card-body">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input class="btn btn-primary" type="submit" value="Update Profile">
-                    </form>
+                <div class="col col-lg-6">
+                    <div class="card card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input class="btn btn-primary" type="submit" value="Update Profile">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
 {% endblock %}

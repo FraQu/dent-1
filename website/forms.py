@@ -39,6 +39,7 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.ModelForm):
     """Register Form based on email and password."""
+
     email = forms.EmailField(label='Email')
 
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)

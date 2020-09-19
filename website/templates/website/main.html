@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
     <title>Dent - Dentist Django App</title>
 </head>
 <link rel="stylesheet" type="text/css" href="{% static 'website/css/bootstrap.min.css' %}">
@@ -13,15 +13,14 @@
 <!-- ***** Navbar Area Start ***** -->
 <nav class="navbar navbar-expand-lg fixed-top nav-menu">
     <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
-    <button class="navbar-toggler" type="button"
+    <button class="navbar-toggler nav-button" type="button"
             data-toggle="collapse" data-target="#navbarSupportContent">
-        <span class="navbar-toggler-icon"></span>
+        <div class="bg-light line1"></div>
+        <div class="bg-light line2"></div>
+        <div class="bg-light line3"></div>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link m-2 menu-item" href="{% url 'home' %}">Home </a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
             </li>
@@ -44,44 +43,46 @@
                 <a class="nav-link m-2 menu-item" href="{% url 'contact' %}">Contact </a>
             </li>
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav font-weight-bold">
+
             {% if request.user.is_anonymous %}
                 <li class="nav-item">
-                    <a class="btn btn-primary mr-1" href="{% url 'login' %}">Login </a>
+                    <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
                 </li>
                 <span></span>
                 <li class="nav-item">
-                    <a class="btn btn-dark mr-1" href="{% url 'register' %}">Register </a>
+                    <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
                 </li>
             {% endif %}
         </ul>
-    </div>
-    <!-- Navbar Hello User Start -->
-    {% if request.user.is_authenticated %}
-        <span class="hello-msg"> Hello,</span>
-        {% if request.user.employee.full_name %}
-            <li class="dropdown hello-msg">
-                <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    {{ user.employee.full_name }}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
-                    <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
-                </div>
-            </li>
-        {% elif request.user.employee.email %}
-            <span><a class="hello-msg" href="{% url 'staff_profile' %}">{{ user.employee.email }}</a></span>
-        {% elif request.user.customer.full_name %}
-            <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.full_name }}</a></span>
-        {% elif request.user.customer.email %}
-            <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.email }}</a></span>
-        {% else %}
-            <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+
+        <!-- Navbar Hello User Start -->
+        {% if request.user.is_authenticated %}
+            <span class="hello-msg"> Hello,</span>
+            {% if request.user.employee.full_name %}
+                <li class="dropdown hello-msg">
+                    <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{ user.employee.full_name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
+                        <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
+                    </div>
+                </li>
+            {% elif request.user.employee.email %}
+                <span><a class="hello-msg" href="{% url 'staff_profile' %}">{{ user.employee.email }}</a></span>
+            {% elif request.user.customer.full_name %}
+                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.full_name }}</a></span>
+            {% elif request.user.customer.email %}
+                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.email }}</a></span>
+            {% else %}
+                <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+            {% endif %}
+            <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
         {% endif %}
-        <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
-    {% endif %}
+    </div>
     <!-- Navbar Hello User End -->
 </nav>
 <!-- ***** Navbar Area End ***** -->
@@ -89,7 +90,9 @@
 {% block content %}
 
 {% endblock %}
+
 <hr>
+
 <!-- Footer Area Start -->
 <footer class="pt-4">
     <div class="container text-center text-md-left">
@@ -148,4 +151,5 @@
 <script src="{% static 'website/js/jquery-3.5.1.slim.min.js' %}"></script>
 <script src="{% static 'website/js/popper.min.js' %}"></script>
 <script src="{% static 'website/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'website/js/script.js' %}"></script>
 </html>
