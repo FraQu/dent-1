@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,130 +8,148 @@
 </head>
 <link rel="stylesheet" type="text/css" href="{% static 'website/css/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'website/css/main.css' %}">
- <script src="{% static 'website/css/script.js' %}"></script>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top nav-menu">
-        <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
-        <button class="navbar-toggler nav-button" type="button"
-                data-toggle="collapse" data-target="#navbarSupportContent">
-            <div class="bg-light line1"></div>
-            <div class="bg-light line2"></div>
-            <div class="bg-light line3"></div>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle m-2 menu-item" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Services</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Dental surgery</a>
-                        <a class="dropdown-item" href="#">Implants</a>
-                        <a class="dropdown-item" href="#">Root canal treatment</a>
+<!-- ***** Navbar Area Start ***** -->
+<nav class="navbar navbar-expand-lg fixed-top nav-menu">
+    <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
+    <button class="navbar-toggler nav-button" type="button"
+            data-toggle="collapse" data-target="#navbarSupportContent">
+        <div class="bg-light line1"></div>
+        <div class="bg-light line2"></div>
+        <div class="bg-light line3"></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle m-2 menu-item" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Services</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Dental surgery</a>
+                    <a class="dropdown-item" href="#">Implants</a>
+                    <a class="dropdown-item" href="#">Root canal treatment</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">For Doctors</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link m-2 menu-item" href="{% url 'appointment' %}">Appointment </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link m-2 menu-item" href="{% url 'contact' %}">Contact </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav font-weight-bold">
+
+            {% if request.user.is_anonymous %}
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
+                </li>
+                <span></span>
+                <li class="nav-item">
+                    <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
+                </li>
+            {% endif %}
+        </ul>
+
+        <!-- Navbar Hello User Start -->
+        {% if request.user.is_authenticated %}
+            <span class="hello-msg"> Hello,</span>
+            {% if request.user.employee.full_name %}
+                <li class="dropdown hello-msg">
+                    <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{ user.employee.full_name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
+                        <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link m-2 menu-item" href="{% url 'appointment' %}">Appointment </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link m-2 menu-item" href="{% url 'contact' %}">Contact </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav font-weight-bold">
-
-                {% if request.user.is_anonymous %}
-                     <li class="nav-item">
-                        <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
-                    </li>
-                    <span></span>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
-                    </li>
-                {% endif %}
-            </ul>
-
-
-    {% if request.user.is_authenticated %}
-        {% if request.user.staff_profile.full_name %}
-            <span><a class="hello-msg"
-                     href="{% url 'staff_profile' %}">Hello, {{ user.staff_profile.full_name }}</a></span>
-        {% elif request.user.staff_profile.email %}
-            <span><a class="hello-msg" href="{% url 'staff_profile' %}">Hello, {{ user.staff_profile.email }}</a></span>
-        {% elif request.user.profile.full_name %}
-            <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.full_name }}</a></span>
-        {% elif request.user.profile.email %}
-            <span><a class="hello-msg" href="{% url 'user_profile' %}">Hello, {{ user.profile.email }}</a></span>
-
-        {% else %}
-            <span><a class="hello-msg" href="#">Hello, {{ user.email }}</a></span>
+            {% elif request.user.employee.email %}
+                <span><a class="hello-msg" href="{% url 'staff_profile' %}">{{ user.employee.email }}</a></span>
+            {% elif request.user.customer.full_name %}
+                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.full_name }}</a></span>
+            {% elif request.user.customer.email %}
+                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.email }}</a></span>
+            {% else %}
+                <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+            {% endif %}
+            <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
         {% endif %}
-
-        <span><a class="logout-msg" href="{% url 'logout' %}">Logout</a></span>
-    {% endif %}
-        </div>
-    </nav>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-<link rel="script" type="" href="{% static 'website/js/jquery-3.5.1.slim.min.js' %}">
+    </div>
+    <!-- Navbar Hello User End -->
+</nav>
 <!-- ***** Navbar Area End ***** -->
 
 {% block content %}
 
 {% endblock %}
+
 <hr>
 
-<!-- Footer Area -->
-<footer class="footer-area bg-img bg-gradient-overlay">
-    <div class="container">
+<!-- Footer Area Start -->
+<footer class="pt-4">
+    <div class="container text-center text-md-left">
         <div class="row">
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-footer-widget">
-                    <div class="footer-contact">
-                        <h5>Address</h5>
-                        <p>Aleja Grunwaldzka 238A, Gdańsk, 80-226 Poand</p>
-                        <h5>Phone</h5>
-                        <p>+48 123 456 789</p>
-                        <h5>Email</h5>
-                        <p>contact@dent.com</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg">
-                <!-- Title -->
-                <h5 class="widget-title">Opening Hours</h5>
-                <ul class="opening-hours">
-                    <li><span>Monday - Wednesday</span> <span>9.00-18.00</span></li>
-                    <li><span>Thursday - Friday</span> <span>8.00-17.00</span></li>
-                    <li><span>Saturday - Sunday</span> <span>Closed</span></li>
+            <!-- Company Area Start -->
+            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                <h5 class="font-weight-bold text-uppercase mb-4">Company</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <p><a href="{% url 'our_team' %}">OUR TEAM</a></p>
+                    </li>
+                    <li>
+                        <p><a href="{% url 'appointment' %}">APPOINTMENT</a></p>
+                    </li>
+                    <li>
+                        <p><a href="{% url 'contact' %}">CONTACT</a></p>
+                    </li>
                 </ul>
             </div>
-        </div>
-    </div>
-    <!-- Copyright Area -->
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                    All rights reserved
-                    <i class="" aria-hidden="true"></i> by Adrian Kasprzyk & Martyna Kalkowska
-                </p>
+            <!-- Address Area Start -->
+            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+                <ul>
+                    <li>
+                        <p>Aleja Grunwaldzka 238A, Gdańsk, 80-226 Poland</p>
+                    </li>
+                    <li>+48 123 456 789</li>
+                    <li>contact@dent.com</li>
+                </ul>
             </div>
+            <!-- Address Area End -->
+            <!-- Opening Hours Area Start -->
+            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                <h5 class="font-weight-bold text-uppercase mb-4">Opening Hours</h5>
+                <ul>
+                    <li><span>Monday - Thursday</span> <span>8.00-18.00</span></li>
+                    <li><span>Friday</span> <span>8.00-17.00</span></li>
+                    <li><span>Saturday</span> <span>10.00-15.00</span></li>
+                    <li><span>Sunday</span> <span>Closed</span></li>
+                </ul>
+            </div>
+            <!-- Opening Hours Area End -->
         </div>
     </div>
+    <!-- Copyright Area Start -->
+    <div class="footer-copyright text-center py-3">
+        <p>&copy;<script>document.write(new Date().getFullYear());</script>
+            All rights reserved
+            <i class="" aria-hidden="true"></i> by Adrian Kasprzyk & Martyna Kalkowska
+        </p>
+    </div>
+    <!-- Copyright Area End -->
 </footer>
-<!-- Footer Area -->
+<!-- Footer Area End-->
 </body>
+<script src="{% static 'website/js/jquery-3.5.1.slim.min.js' %}"></script>
+<script src="{% static 'website/js/popper.min.js' %}"></script>
+<script src="{% static 'website/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'website/js/script.js' %}"></script>
 </html>
