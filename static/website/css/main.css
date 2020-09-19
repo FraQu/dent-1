@@ -134,7 +134,12 @@ a.logout-msg {
 
 /* LOGIN.HTML stylesheet */
 
-.login-box{
+.login-box, .register-box{
     padding: 150px;
     height: 300px;
 }
+
+.form {
+    opacity: 0.8;
+}
+
