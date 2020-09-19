@@ -1,24 +1,15 @@
 {% extends 'website/main.html' %}
 
 {% block content %}
-
-    <p>{{ message_schedule }}</p>
-    <p>{{ message_name }}</p>
-    <p>{{ essage_phone }}</p>
-    <p>{{ message_email }}</p>
-    <p>{{ message_address }}</p>
-    <p>{{ message_date }}</p>
-    <p>{{ message_time }}</p>
-    <p>{{ message }}</p>
-
+<header>
     <!-- Book An Appointment -->
-    <section class="">
+    <section class="appointment">
         <div class="container">
             <div class="row">
                 <!-- Section Heading -->
                 <div class="col-12">
                     <div class="section-heading text-center">
-                        <h2>Book An Appointment</h2>
+                        <h2 class="text-light">Book An Appointment</h2>
                     </div>
                 </div>
             </div>
@@ -31,33 +22,33 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-30">
-                                    <input type="text" name="message-name" class="form-control" placeholder="Your Name"
+                                    <input type="text" name="message-name" class="form-control form" placeholder="Your Name"
                                            required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-30">
-                                    <input type="tel" name="message-phone" class="form-control"
+                                    <input type="tel" name="message-phone" class="form-control form"
                                            placeholder="Your Phone: +48123456789" required
                                            pattern="[+]{1}[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{3}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-30">
-                                    <input type="email" name="message-email" class="form-control"
+                                    <input type="email" name="message-email" class="form-control form"
                                            placeholder="Your Email" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-30">
-                                    <input type="text" name="message-address" class="form-control"
+                                    <input type="text" name="message-address" class="form-control form"
                                            placeholder="Your Address">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group mb-30">
-                                    <select name="message-date" class="form-control">
+                                    <select name="message-date" class="form-control form">
                                         <option value="Choose Your Time">Choose Your Date Schedule</option>
                                         <option value="Monday">Monday</option>
                                         <option value="Tuesday">Tuesday</option>
@@ -70,7 +61,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group mb-30">
-                                    <select name="message-time" class="form-control">
+                                    <select name="message-time" class="form-control form">
                                         <option value="Choose Your Schedule">Choose Your Schedule</option>
                                         <option value="8 AM to 9 AM">8 AM to 9 AM</option>
                                         <option value="9 AM to 10 AM">9 AM to 10 AM</option>
@@ -88,7 +79,7 @@
 
                             <div class="col-12">
                                 <div class="form-group mb-30">
-                                    <textarea name="message" class="form-control" placeholder="Your Message"></textarea>
+                                    <textarea name="message" class="form-control form" placeholder="Your Message"></textarea>
                                 </div>
                             </div>
 
@@ -102,6 +93,15 @@
             </div>
         </div>
     </section>
+    <p>{{ message_schedule }}</p>
+    <p>{{ message_name }}</p>
+    <p>{{ message_phone }}</p>
+    <p>{{ message_email }}</p>
+    <p>{{ message_address }}</p>
+    <p>{{ message_date }}</p>
+    <p>{{ message_time }}</p>
+    <p>{{ message }}</p>
+</header>
     <!-- Book An Appointment -->
 {% endblock %}
 
