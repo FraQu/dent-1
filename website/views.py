@@ -7,17 +7,21 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, FormView, UpdateView, ListView
 
 from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm
-from .decorators import login_required, customer_required, employee_required
+from .decorators import active_required, login_required, customer_required, employee_required
 from .models import Employee
 
 email_contact = ['contact@dent.com']
 
 
 def index(request):
+    """Index page function."""
+
     return render(request, 'website/index.html')
 
 
 class RegisterView(CreateView):
+    """RegisterView."""
+
     form_class = RegisterForm
     success_url = '/login'
     template_name = 'registration/register.html'
@@ -33,6 +37,8 @@ class RegisterView(CreateView):
 
 
 class LoginView(FormView):
+    """LoginView."""
+
     form_class = LoginForm
     success_url = '/'
     template_name = 'registration/login.html'
@@ -56,11 +62,15 @@ class LoginView(FormView):
 
 
 def logout_user(request):
+    """Logout user function."""
+
     logout(request)
     return redirect('home')
 
 
 def contact(request):
+    """Contact sender function."""
+
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']
@@ -82,6 +92,8 @@ def contact(request):
 
 
 def appointment(request):
+    """Appointment sender function."""
+
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_email = request.POST['message-email']
@@ -115,8 +127,9 @@ def appointment(request):
         return render(request, 'website/appointment.html')
 
 
-@method_decorator([login_required, customer_required], name='dispatch')
+@method_decorator([active_required, login_required, customer_required], name='dispatch')
 class CustomerView(UpdateView):
+    """CustomerView update."""
     form_class = CustomerForm
     template_name = 'website/user_profile.html'
     success_url = '/user_profile'
@@ -125,8 +138,10 @@ class CustomerView(UpdateView):
         return self.request.user.customer
 
 
-@method_decorator([login_required, employee_required], name='dispatch')
+@method_decorator([active_required, login_required, employee_required], name='dispatch')
 class EmployeeView(UpdateView):
+    """EmployeeView update."""
+
     form_class = EmployeeForm
     template_name = 'website/staff_profile.html'
     success_url = '/staff_profile'
@@ -136,5 +151,7 @@ class EmployeeView(UpdateView):
 
 
 class OurTeamView(ListView):
+    """OurTeamView List."""
+
     model = Employee
     template_name = 'website/our_team.html'

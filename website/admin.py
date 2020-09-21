@@ -8,27 +8,30 @@ from .models import User, Customer, Employee
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
-    """Define admin model for custom User model with no username field."""
+    """Define Admin model for custom User model with no username field."""
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_customer', 'is_employee',
-                                       'groups', 'user_permissions')}),
+        (_('Permissions'),
+         {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_customer', 'is_employee', 'is_nurse', 'is_doctor',
+                     'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email',),
+            'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'is_superuser', 'is_staff', 'is_customer', 'is_employee')
+    list_display = ('email', 'is_superuser', 'is_staff', 'is_customer', 'is_employee', 'is_nurse', 'is_doctor',)
     search_fields = ('email',)
     ordering = ('email',)
 
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    """Define UserProfile model for custom User model."""
+    """Define Customer Admin model for custom User model."""
+
     readonly_fields = ('updated_date',)
 
     fieldsets = (
@@ -42,14 +45,15 @@ class CustomerAdmin(admin.ModelAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', )
-    search_fields = ('email', )
+    list_display = ('email', 'full_name', 'phone', 'birth_date', 'gender',)
+    search_fields = ('email',)
     ordering = ('email',)
 
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    """Define StaffProfile model for custom User model."""
+    """Define Employee Admin model for custom User model."""
+
     readonly_fields = ('updated_date',)
 
     fieldsets = (
