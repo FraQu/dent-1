@@ -48,8 +48,8 @@ class LoginView(FormView):
         password = form.cleaned_data.get('password')
         user = authenticate(request, username=email, password=password)
         if user and password is not None:
-            login(request, user, )
-            return redirect('home')
+            login(request, user, password)
+            return redirect('logged_in')
         else:
             messages.info(request, 'email OR password is incorrect')
         return super(LoginView, self).form_invalid(form)
@@ -138,3 +138,7 @@ class EmployeeView(UpdateView):
 class OurTeamView(ListView):
     model = Employee
     template_name = 'website/our_team.html'
+
+
+def logged_in(request):
+    return render(request, 'website/logged.html')

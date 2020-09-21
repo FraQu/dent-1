@@ -11,6 +11,8 @@
 
 <body>
 <!-- ***** Navbar Area Start ***** -->
+
+{% block navbar %}
 <nav class="navbar navbar-expand-lg fixed-top nav-menu">
     <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
     <button class="navbar-toggler nav-button" type="button"
@@ -85,6 +87,7 @@
     </div>
     <!-- Navbar Hello User End -->
 </nav>
+{% endblock %}
 <!-- ***** Navbar Area End ***** -->
 
 {% block content %}
