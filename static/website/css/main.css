@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: #ebeff5;
+    background-color: #ebeff5
 }
 
 header {
@@ -134,7 +134,7 @@ a.logout-msg {
 
 /* LOGIN.HTML stylesheet */
 
-.login-box, .register-box, .contact, .appointment, .album{
+.login-box, .register-box{
     padding: 150px;
     height: 300px;
 }
@@ -143,6 +143,3 @@ a.logout-msg {
     opacity: 0.8;
 }
 
-/* CONTACT.HTML stylesheet */
-
-/* our_team.HTML stylesheet */

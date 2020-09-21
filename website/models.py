@@ -53,6 +53,8 @@ class User(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     is_customer = models.BooleanField(default=False, null=True, blank=True)
     is_employee = models.BooleanField(default=False, null=True, blank=True)
+    is_nurse = models.BooleanField(default=False, null=True, blank=True)
+    is_doctor = models.BooleanField(default=False, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -67,11 +69,11 @@ class User(AbstractUser):
 
 
 class Customer(models.Model):
-    """User profile model."""
+    """Customer profile model - OneToOne User."""
     username = None
     email = models.OneToOneField(User, related_name='customer', null=True, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255, null=True, blank=True)
-    gender_choice = (('-', '---',), ('M', 'Male'), ('F', 'Female'))
+    gender_choice = (('-', '-',), ('M', 'Male'), ('F', 'Female'))
     gender = models.CharField(max_length=1, choices=gender_choice, default='-', blank=True)
     birth_date = models.DateField(null=True, blank=True)
     phone = models.CharField(max_length=9, null=True, blank=True)
@@ -88,7 +90,7 @@ class Customer(models.Model):
 
 
 class Employee(models.Model):
-    """Staff info model."""
+    """Employee info model - OneToOne User."""
     username = None
     email = models.OneToOneField(User, related_name='employee', null=True, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255, null=True, blank=True)

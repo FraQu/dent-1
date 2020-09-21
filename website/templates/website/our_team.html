@@ -3,12 +3,12 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'website/css/main.css' %}">
     <body>
-<header>
-    <section class="p-sm-5 p-2 team">
-        <div class="container-fluid">
+
+    <div class="album py-5">
+        <div class="container">
             <div class="row">
                 {% for employee in object_list %}
-                    <div class="col-lg-4">
+                    <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
                             {% if employee.profile_pic.url is not null %}
                                 <img alt="User picture" class="bd-placeholder-img card-img-top"
@@ -29,7 +29,7 @@
                 {% endfor %}
             </div>
         </div>
-    </section>
-</header>
+    </div>
+
     </body>
 {% endblock %}
