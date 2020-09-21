@@ -48,7 +48,7 @@ class LoginView(FormView):
         password = form.cleaned_data.get('password')
         user = authenticate(request, username=email, password=password)
         if user and password is not None:
-            login(request, user, password)
+            login(request, user,)
             return redirect('logged_in')
         else:
             messages.info(request, 'email OR password is incorrect')
