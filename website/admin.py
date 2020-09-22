@@ -36,7 +36,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('email',)}),
-        (_('Personal info'), {'fields': ('full_name', 'phone', 'birth_date', 'gender',)}),
+        (_('Personal info'), {'fields': ('full_name', 'phone', 'birth_date', 'gender', 'profile_pic',)}),
         (_('Important dates'), {'fields': ('updated_date',)}),
     )
     add_fieldsets = (
@@ -58,7 +58,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('email',)}),
-        (_('Personal info'), {'fields': ('full_name', 'bio',)}),
+        (_('Personal info'), {'fields': ('full_name', 'bio', 'profile_pic',)}),
         (_('Important dates'), {'fields': ('updated_date',)}),
     )
     add_fieldsets = (
