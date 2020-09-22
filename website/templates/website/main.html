@@ -12,78 +12,80 @@
 <body>
 <!-- ***** Navbar Area Start ***** -->
 <nav class="navbar navbar-expand-lg fixed-top nav-menu">
-    <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
-    <button class="navbar-toggler nav-button" type="button"
-            data-toggle="collapse" data-target="#navbarSupportContent">
-        <div class="bg-light line1"></div>
-        <div class="bg-light line2"></div>
-        <div class="bg-light line3"></div>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle m-2 menu-item" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Services</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Dental surgery</a>
-                    <a class="dropdown-item" href="#">Implants</a>
-                    <a class="dropdown-item" href="#">Root canal treatment</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">For Doctors</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link m-2 menu-item" href="{% url 'appointment' %}">Appointment </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link m-2 menu-item" href="{% url 'contact' %}">Contact </a>
-            </li>
-        </ul>
-        <ul class="navbar-nav font-weight-bold">
-
-            {% if request.user.is_anonymous %}
+    <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
+        <button class="navbar-toggler nav-button" type="button"
+                data-toggle="collapse" data-target="#navbarSupportContent">
+            <div class="bg-light line1"></div>
+            <div class="bg-light line2"></div>
+            <div class="bg-light line3"></div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportContent">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
+                    <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
                 </li>
-                <span></span>
-                <li class="nav-item">
-                    <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
-                </li>
-            {% endif %}
-        </ul>
-
-        <!-- Navbar Hello User Start -->
-        {% if request.user.is_authenticated %}
-            <span class="hello-msg"> Hello,</span>
-            {% if request.user.employee.full_name %}
-                <li class="dropdown hello-msg">
-                    <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle m-2 menu-item" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        {{ user.employee.full_name }}
-                    </a>
+                       aria-haspopup="true" aria-expanded="false">Services</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
-                        <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
+                        <a class="dropdown-item" href="#">Dental surgery</a>
+                        <a class="dropdown-item" href="#">Implants</a>
+                        <a class="dropdown-item" href="#">Root canal treatment</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">For Doctors</a>
                     </div>
                 </li>
-            {% elif request.user.employee.email %}
-                <span><a class="hello-msg" href="{% url 'staff_profile' %}">{{ user.employee.email }}</a></span>
-            {% elif request.user.customer.full_name %}
-                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.full_name }}</a></span>
-            {% elif request.user.customer.email %}
-                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.email }}</a></span>
-            {% else %}
-                <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+                <li class="nav-item">
+                    <a class="nav-link m-2 menu-item" href="{% url 'appointment' %}">Appointment </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 menu-item" href="{% url 'contact' %}">Contact </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav font-weight-bold">
+
+                {% if request.user.is_anonymous %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
+                    </li>
+                    <span></span>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <!-- Navbar Hello User Start -->
+            {% if request.user.is_authenticated %}
+                <span class="hello-msg"> Hello,</span>
+                {% if request.user.employee.full_name %}
+                    <li class="dropdown list-unstyled hello-msg">
+                        <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {{ user.employee.full_name }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
+                            <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
+                        </div>
+                    </li>
+                {% elif request.user.employee.email %}
+                    <span><a class="hello-msg" href="{% url 'staff_profile' %}">{{ user.employee.email }}</a></span>
+                {% elif request.user.customer.full_name %}
+                    <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.full_name }}</a></span>
+                {% elif request.user.customer.email %}
+                    <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.email }}</a></span>
+                {% else %}
+                    <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+                {% endif %}
+                <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
             {% endif %}
-            <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
-        {% endif %}
+        </div>
+        <!-- Navbar Hello User End -->
     </div>
-    <!-- Navbar Hello User End -->
 </nav>
 <!-- ***** Navbar Area End ***** -->
 
@@ -147,6 +149,7 @@
     <!-- Copyright Area End -->
 </footer>
 <!-- Footer Area End-->
+
 </body>
 <script src="{% static 'website/js/jquery-3.5.1.slim.min.js' %}"></script>
 <script src="{% static 'website/js/popper.min.js' %}"></script>
