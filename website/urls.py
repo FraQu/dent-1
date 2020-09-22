@@ -1,7 +1,10 @@
+from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from website.views import RegisterView, LoginView, CustomerView, OurTeamView, EmployeeView
 from . import views
+from .views import (
+    RegisterView, LoginView, CustomerView, OurTeamView, EmployeeView
+)
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -14,4 +17,11 @@ urlpatterns = [
     path('staff_profile/', EmployeeView.as_view(), name='staff_profile'),
     path('our_team/', OurTeamView.as_view(), name='our_team'),
 
+    path('password_change/done/',
+         auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_complete.html'),
+         name='password_change_complete'),
+    path('password_change/',
+         auth_views.PasswordChangeView.as_view(success_url='done',
+                                               template_name='registration/password_change.html'),
+         name='password_change'),
 ]
