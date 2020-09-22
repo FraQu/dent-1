@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, FormView, UpdateView, ListView
 
-from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm
 from .decorators import active_required, login_required, customer_required, employee_required
+from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm
 from .models import Employee
 
 email_contact = ['contact@dent.com']
