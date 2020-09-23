@@ -132,7 +132,7 @@ class CustomerView(UpdateView):
     """CustomerView update."""
     form_class = CustomerForm
     template_name = 'website/user_profile.html'
-    success_url = 'website/user_profile'
+    success_url = '/user_profile'
 
     def get_object(self, queryset=None):
         return self.request.user.customer
@@ -155,6 +155,7 @@ class OurTeamView(ListView):
 
     model = Employee
     template_name = 'website/our_team.html'
+
 
 @login_required
 def dashboard(request):
