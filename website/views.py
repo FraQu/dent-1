@@ -55,7 +55,7 @@ class LoginView(FormView):
         user = authenticate(request, username=email, password=password)
         if user and password is not None:
             login(request, user, )
-            return redirect('home')
+            return redirect('dashboard')
         else:
             messages.info(request, 'email OR password is incorrect')
         return super(LoginView, self).form_invalid(form)
@@ -132,7 +132,7 @@ class CustomerView(UpdateView):
     """CustomerView update."""
     form_class = CustomerForm
     template_name = 'website/user_profile.html'
-    success_url = '/user_profile'
+    success_url = 'website/user_profile'
 
     def get_object(self, queryset=None):
         return self.request.user.customer
@@ -155,3 +155,8 @@ class OurTeamView(ListView):
 
     model = Employee
     template_name = 'website/our_team.html'
+
+@login_required
+def dashboard(request):
+    return render(request, 'website/dashboard.html',
+                  {'section': 'dashboard'})
