@@ -17,6 +17,7 @@ urlpatterns = [
     path('user_profile/', CustomerView.as_view(), name='user_profile'),
     path('staff_profile/', EmployeeView.as_view(), name='staff_profile'),
     path('our_team/', OurTeamView.as_view(), name='our_team'),
+    path('dashboard', views.dashboard, name='dashboard'),
 
     path('password_change/done/',
          login_required(auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_complete.html')),

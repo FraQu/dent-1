@@ -134,7 +134,7 @@ a.logout-msg {
 
 /* LOGIN.HTML stylesheet */
 
-.login-box, .register-box, .appointment, .contact{
+.login-box, .register-box, .appointment, .contact, .album{
     padding: 150px;
     height: 300px;
 }
@@ -142,4 +142,29 @@ a.logout-msg {
 .form {
     opacity: 0.8;
 }
+
+.sidebar{
+    height: 100vh;
+    background: linear-gradient(rgba(2,62,138, .7), rgba(3,4,94, .9));
+    box-shadow: 5px 7px 25px #999;
+}
+
+.rbar-link{
+    transition: all .4s;
+}
+
+.rbar-link:hover {
+    background-color: #0096C7;
+    border-radius: 5px;
+}
+.b-border {
+    border-bottom: 1px groove white;
+}
+
+.topbar{
+    background-color: #023E8A;
+    opacity: 0.6;
+    box-shadow: 5px 7px 25px #999;
+}
+
 
