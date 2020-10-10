@@ -79,11 +79,13 @@
                         </div>
                     </li>
                 {% elif request.user.is_customer is True %}
-                    <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.full_name }}</a></span>
-                {% elif request.user.customer.email %}
-                    <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.email }}</a></span>
-                {% else %}
-                    <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+                    <span><a class="hello-msg" href="{% url 'user_profile' %}">
+                        {% if not request.user.full_name %}
+                            {{ request.user.get_email }}
+                        {% else %}
+                            {{ request.user.full_name }}
+                        {% endif %}
+                    </a></span>
                 {% endif %}
                 <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
             {% endif %}
