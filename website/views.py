@@ -4,8 +4,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, FormView, UpdateView, ListView
+from django.views.generic import CreateView, FormView, ListView
 
 from .decorators import active_required, login_required, customer_required, employee_required
 from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm
@@ -62,6 +61,8 @@ class LoginView(FormView):
         return super(LoginView, self).form_invalid(form)
 
 
+@login_required
+@active_required
 def logout_user(request):
     """Logout user function."""
 
@@ -128,23 +129,6 @@ def appointment(request):
         return render(request, 'website/appointment.html')
 
 
-@method_decorator([active_required, login_required, employee_required], name='dispatch')
-class EmployeeView(UpdateView):
-    """EmployeeView update."""
-
-    form_class = EmployeeForm
-    template_name = 'website/staff_profile.html'
-    success_url = '/staff_profile'
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user.employee
-        return super().form_valid(form)
-
-    def get_object(self, queryset=None):
-        employee = self.request.user.employee
-        return employee
-
-
 class OurTeamView(ListView):
     """OurTeamView List."""
 
@@ -153,12 +137,14 @@ class OurTeamView(ListView):
 
 
 @login_required
+@active_required
 def dashboard(request):
     return render(request, 'website/dashboard.html',
                   {'section': 'dashboard'})
 
 
 @login_required
+@active_required
 @employee_required
 def employee_update_view(request):
     if request.method == 'POST':
@@ -183,6 +169,7 @@ def employee_update_view(request):
 
 
 @login_required
+@active_required
 @customer_required
 def customer_update_view(request):
     if request.method == 'POST':
