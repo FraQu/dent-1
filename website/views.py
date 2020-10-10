@@ -8,7 +8,7 @@ from django.views.generic import CreateView, FormView, ListView
 
 from .decorators import active_required, login_required, customer_required, employee_required
 from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm
-from .models import Employee
+from .models import Employee, User
 
 email_contact = ['contact@dent.com']
 
@@ -129,13 +129,6 @@ def appointment(request):
         return render(request, 'website/appointment.html')
 
 
-class OurTeamView(ListView):
-    """OurTeamView List."""
-
-    model = Employee
-    template_name = 'website/our_team.html'
-
-
 @login_required
 @active_required
 def dashboard(request):
@@ -191,3 +184,14 @@ def customer_update_view(request):
         'customer_form': customer_form
     }
     return render(request, 'website/user_profile.html', context=context)
+
+
+def our_team_view(request):
+    users = User.objects.all().filter(is_staff=True)
+    employee = Employee.objects.all()
+
+    context = {
+        "object_list": users,
+        "employee": employee,
+    }
+    return render(request, 'website/our_team.html', context)

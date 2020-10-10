@@ -4,7 +4,7 @@ from django.urls import path, reverse_lazy
 from . import views
 from .decorators import login_required
 from .views import (
-    RegisterView, LoginView, OurTeamView,
+    RegisterView, LoginView,
 )
 
 urlpatterns = [
@@ -16,7 +16,7 @@ urlpatterns = [
     path('appointment/', views.appointment, name='appointment'),
     path('user_profile/', views.customer_update_view, name='user_profile'),
     path('staff_profile/', views.employee_update_view, name='staff_profile'),
-    path('our_team/', OurTeamView.as_view(), name='our_team'),
+    path('our_team/', views.our_team_view, name='our_team'),
     path('dashboard', views.dashboard, name='dashboard'),
 
     path('password_change/done/',
