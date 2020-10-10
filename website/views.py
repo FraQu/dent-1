@@ -187,7 +187,7 @@ def employee_update_view(request):
 def customer_update_view(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, request.FILES, instance=request.user)
-        customer_form = EmployeeForm(request.POST, instance=request.user.customer)
+        customer_form = CustomerForm(request.POST, instance=request.user.customer)
         if user_form.is_valid() and customer_form.is_valid():
             user = user_form.save(commit=False)
             user.save()
@@ -197,10 +197,10 @@ def customer_update_view(request):
             return redirect(reverse_lazy('user_profile'))
     else:
         user_form = UserForm(instance=request.user)
-        customer_form = EmployeeForm(instance=request.user.customer)
+        customer_form = CustomerForm(instance=request.user.customer)
 
     context = {
         'user_form': user_form,
-        'employee_form': customer_form
+        'customer_form': customer_form
     }
     return render(request, 'website/user_profile.html', context=context)
