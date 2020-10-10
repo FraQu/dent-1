@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, FormView, ListView
+from django.views.generic import CreateView, FormView
 
 from .decorators import active_required, login_required, customer_required, employee_required
 from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm
