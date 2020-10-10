@@ -11,9 +11,9 @@
                     <hr>
                     <h3 style="text-align: center">Profile Information</h3>
                     <hr>
-                    {% if request.user.staff_profile.profile_pic.url is not null %}
+                    {% if request.user.profile_pic.url is not null %}
                         <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
-                             src="{{ request.user.staff_profile.profile_pic.url }}">
+                             src="{{ request.user.profile_pic.url }}">
                     {% else %}
                         <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
                              src="{% static 'website/images/default_profile_photo.png' %}">
@@ -24,7 +24,8 @@
                 <div class="card card-body">
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {{ user_form.as_p }}
+                        {{ employee_form.as_p }}
                         <input class="btn btn-primary" type="submit" value="Update Profile">
                     </form>
                 </div>

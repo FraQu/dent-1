@@ -10,15 +10,15 @@
                 {% for employee in object_list %}
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            {% if employee.profile_pic.url is not null %}
+                            {% if user.profile_pic.url is not null %}
                                 <img alt="User picture" class="bd-placeholder-img card-img-top"
-                                     src="{{ employee.profile_pic.url }}"/>
+                                     src="{{ user.profile_pic.url }}"/>
                             {% else %}
                                 <img alt="User picture" class="bd-placeholder-img card-img-top"
                                      src="{% static 'website/images/default_profile_photo.png' %}">
                             {% endif %}
                             <div class="card-body">
-                                <h3 style="text-align: center" class="card-text">{{ employee.full_name }}</h3>
+                                <h3 style="text-align: center" class="card-text">{{ user.full_name }}</h3>
                                 <hr>
                                 <p class="card-text">{{ employee.bio }}</p>
                                 <div class="d-flex justify-content-between align-items-center">

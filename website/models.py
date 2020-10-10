@@ -1,5 +1,6 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class UserManager(BaseUserManager):
@@ -12,8 +13,6 @@ class UserManager(BaseUserManager):
         """Create and save User with email and password"""
         if not email:
             raise ValueError('Email is required.')
-        if not password:
-            raise ValueError("Password is required.")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -55,6 +54,12 @@ class User(AbstractUser):
     is_employee = models.BooleanField(default=False, null=True, blank=True)
     is_nurse = models.BooleanField(default=False, null=True, blank=True)
     is_doctor = models.BooleanField(default=False, null=True, blank=True)
+    full_name = models.CharField(_('Full name'), max_length=255, null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    gender_choice = (('-', '-',), ('M', 'Male'), ('F', 'Female'))
+    gender = models.CharField(max_length=1, choices=gender_choice, default='-', blank=True)
+    phone = models.CharField(max_length=9, null=True, blank=True)
+    profile_pic = models.ImageField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -70,32 +75,23 @@ class User(AbstractUser):
 
 class Customer(models.Model):
     """Customer profile model - OneToOne User."""
-    username = None
     email = models.OneToOneField(User, related_name='customer', null=True, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=255, null=True, blank=True)
-    gender_choice = (('-', '-',), ('M', 'Male'), ('F', 'Female'))
-    gender = models.CharField(max_length=1, choices=gender_choice, default='-', blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    phone = models.CharField(max_length=9, null=True, blank=True)
-    profile_pic = models.ImageField(null=True, blank=True)
     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
+
     objects = UserManager()
 
     def __str__(self):
         return str(self.email)
 
     class Meta:
-        verbose_name = 'customer'
-        verbose_name_plural = 'customers'
+        verbose_name = _('Customer')
+        verbose_name_plural = _('Customers')
 
 
 class Employee(models.Model):
     """Employee info model - OneToOne User."""
-    username = None
     email = models.OneToOneField(User, related_name='employee', null=True, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=255, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
-    profile_pic = models.ImageField(null=True, blank=True)
     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
 
     objects = UserManager()
@@ -104,5 +100,5 @@ class Employee(models.Model):
         return str(self.email)
 
     class Meta:
-        verbose_name = 'employee'
-        verbose_name_plural = 'employees'
+        verbose_name = _('Employee')
+        verbose_name_plural = _('employees')

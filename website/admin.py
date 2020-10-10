@@ -12,6 +12,7 @@ class UserAdmin(DjangoUserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
+        (_('Personal info'), {'fields': ('full_name', 'birth_date', 'gender', 'phone', 'profile_pic',)}),
         (_('Permissions'),
          {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_customer', 'is_employee', 'is_nurse', 'is_doctor',
                      'groups', 'user_permissions')}),
@@ -23,7 +24,7 @@ class UserAdmin(DjangoUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'is_superuser', 'is_staff', 'is_customer', 'is_employee', 'is_nurse', 'is_doctor',)
+    list_display = ('email', 'full_name', 'is_active', 'is_superuser', 'is_staff', 'is_customer', 'is_employee', 'is_nurse', 'is_doctor', 'birth_date', 'gender', 'phone',)
     search_fields = ('email',)
     ordering = ('email',)
 
@@ -36,7 +37,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('email',)}),
-        (_('Personal info'), {'fields': ('full_name', 'phone', 'birth_date', 'gender', 'profile_pic',)}),
+        (_('Personal info'), {'fields': ()}),
         (_('Important dates'), {'fields': ('updated_date',)}),
     )
     add_fieldsets = (
@@ -45,7 +46,7 @@ class CustomerAdmin(admin.ModelAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'full_name', 'phone', 'birth_date', 'gender',)
+    list_display = ('email', )
     search_fields = ('email',)
     ordering = ('email',)
 
@@ -58,7 +59,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('email',)}),
-        (_('Personal info'), {'fields': ('full_name', 'bio', 'profile_pic',)}),
+        (_('Personal info'), {'fields': ('bio',)}),
         (_('Important dates'), {'fields': ('updated_date',)}),
     )
     add_fieldsets = (
@@ -67,7 +68,7 @@ class EmployeeAdmin(admin.ModelAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'full_name',)
+    list_display = ('email',)
     search_fields = ('email',)
     ordering = ('email',)
 

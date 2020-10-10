@@ -4,7 +4,7 @@ from django.urls import path, reverse_lazy
 from . import views
 from .decorators import login_required
 from .views import (
-    RegisterView, LoginView, CustomerView, OurTeamView, EmployeeView
+    RegisterView, LoginView, OurTeamView,
 )
 
 urlpatterns = [
@@ -14,16 +14,17 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('contact/', views.contact, name='contact'),
     path('appointment/', views.appointment, name='appointment'),
-    path('user_profile/', CustomerView.as_view(), name='user_profile'),
-    path('staff_profile/', EmployeeView.as_view(), name='staff_profile'),
+    path('user_profile/', views.customer_update_view, name='user_profile'),
+    path('staff_profile/', views.employee_update_view, name='staff_profile'),
     path('our_team/', OurTeamView.as_view(), name='our_team'),
     path('dashboard', views.dashboard, name='dashboard'),
 
     path('password_change/done/',
-         login_required(auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_complete.html')),
-         name='password_change_complete'),
+         login_required(auth_views.PasswordChangeDoneView.as_view(
+             template_name='registration/password_change_complete.html')), name='password_change_complete'),
     path('password_change/',
-         login_required(auth_views.PasswordChangeView.as_view(success_url=reverse_lazy('password_change_complete'),
-                                                              template_name='registration/password_change.html')),
+         login_required(auth_views.PasswordChangeView.as_view(
+             success_url=reverse_lazy('password_change_complete'),
+             template_name='registration/password_change.html')),
          name='password_change'),
 ]

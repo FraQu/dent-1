@@ -63,6 +63,8 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.ModelForm):
     """Register Form based on email and password."""
+    error_messages = {
+        'password_mismatch': _("The two password fields didn't match."), }
 
     email = forms.EmailField(label='Email')
 
@@ -105,28 +107,39 @@ class RegisterForm(forms.ModelForm):
         return user
 
 
+gender_choice = (('M', 'Male'), ('F', 'Female'))
+
+
 class CustomerForm(forms.ModelForm):
     """Customer form."""
 
-    full_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    gender = forms.TypedChoiceField(choices=Customer.gender_choice,
-                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    birth_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    phone = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'class': 'form-control'}))
-
     class Meta:
         model = Customer
-        fields = ('full_name', 'gender', 'birth_date', 'phone', 'profile_pic',)
+        fields = ()
+        exclude = ['user']
+
+
+class UserForm(forms.ModelForm):
+    """Custom User model based on Django User model."""
+    full_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    birth_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    gender = forms.TypedChoiceField(required=False, choices=gender_choice,
+                                    widget=forms.Select(attrs={'class': 'form-control'}))
+    profile_pic = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ('full_name', 'birth_date', 'phone', 'gender', 'profile_pic',)
         exclude = ['user']
 
 
 class EmployeeForm(forms.ModelForm):
     """Employee form."""
 
-    full_name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Employee
-        fields = ('full_name', 'bio', 'profile_pic',)
+        fields = ('bio',)
         exclude = ['user']

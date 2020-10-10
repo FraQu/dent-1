@@ -3,11 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, FormView, UpdateView, ListView
 
 from .decorators import active_required, login_required, customer_required, employee_required
-from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm
+from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm
 from .models import Employee
 
 email_contact = ['contact@dent.com']
@@ -127,17 +128,6 @@ def appointment(request):
         return render(request, 'website/appointment.html')
 
 
-@method_decorator([active_required, login_required, customer_required], name='dispatch')
-class CustomerView(UpdateView):
-    """CustomerView update."""
-    form_class = CustomerForm
-    template_name = 'website/user_profile.html'
-    success_url = 'website/user_profile'
-
-    def get_object(self, queryset=None):
-        return self.request.user.customer
-
-
 @method_decorator([active_required, login_required, employee_required], name='dispatch')
 class EmployeeView(UpdateView):
     """EmployeeView update."""
@@ -146,8 +136,13 @@ class EmployeeView(UpdateView):
     template_name = 'website/staff_profile.html'
     success_url = '/staff_profile'
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user.employee
+        return super().form_valid(form)
+
     def get_object(self, queryset=None):
-        return self.request.user.employee
+        employee = self.request.user.employee
+        return employee
 
 
 class OurTeamView(ListView):
@@ -156,7 +151,56 @@ class OurTeamView(ListView):
     model = Employee
     template_name = 'website/our_team.html'
 
+
 @login_required
 def dashboard(request):
     return render(request, 'website/dashboard.html',
                   {'section': 'dashboard'})
+
+
+@login_required
+@employee_required
+def employee_update_view(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, request.FILES, instance=request.user)
+        employee_form = EmployeeForm(request.POST, instance=request.user.employee)
+        if user_form.is_valid() and employee_form.is_valid():
+            user = user_form.save(commit=False)
+            user.save()
+            employee = employee_form.save(commit=False)
+            employee.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect(reverse_lazy('staff_profile'))
+    else:
+        user_form = UserForm(instance=request.user)
+        employee_form = EmployeeForm(instance=request.user.employee)
+
+    context = {
+        'user_form': user_form,
+        'employee_form': employee_form
+    }
+    return render(request, 'website/staff_profile.html', context=context)
+
+
+@login_required
+@customer_required
+def customer_update_view(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, request.FILES, instance=request.user)
+        customer_form = CustomerForm(request.POST, instance=request.user.customer)
+        if user_form.is_valid() and customer_form.is_valid():
+            user = user_form.save(commit=False)
+            user.save()
+            employee = customer_form.save(commit=False)
+            employee.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect(reverse_lazy('user_profile'))
+    else:
+        user_form = UserForm(instance=request.user)
+        customer_form = CustomerForm(instance=request.user.customer)
+
+    context = {
+        'user_form': user_form,
+        'customer_form': customer_form
+    }
+    return render(request, 'website/user_profile.html', context=context)

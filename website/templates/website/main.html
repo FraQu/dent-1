@@ -61,12 +61,12 @@
         <!-- Navbar Hello User Start -->
         {% if request.user.is_authenticated %}
             <span class="hello-msg"> Hello,</span>
-            {% if request.user.employee.full_name %}
+            {% if request.user.full_name %}
                 <li class="dropdown hello-msg">
                     <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        {{ user.employee.full_name }}
+                        {{ user.full_name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
