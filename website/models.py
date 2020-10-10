@@ -1,6 +1,5 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -47,42 +46,15 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class AbstractUser(AbstractBaseUser, PermissionsMixin):
-    """
-    An abstract base user suitable for use in Oscar projects.
-    This is basically a copy of the core AbstractUser model but without a
-    username field
-    """
-    email = models.EmailField(_('Email'), unique=True)
-    full_name = models.CharField(_('Full name'), max_length=255, null=True, blank=True)
-    is_staff = models.BooleanField(_('Staff status'), default=False)
-    is_active = models.BooleanField(_('Active'))
-    date_joined = models.DateTimeField(_('Date Joined'), default=timezone.now)
-
-    objects = UserManager()
-
-    USERNAME_FIELD = 'email'
-
-    class Meta:
-        abstract = True
-        verbose_name = _('User')
-        verbose_name_plural = _('Users')
-
-    def clean(self):
-        super().clean()
-        self.email = self.__class__.objects.normalize_email(self.email)
-
-    def get_full_name(self):
-        return self.full_name
-
-
 class User(AbstractUser):
     """Custom User model based on Django User model."""
+    username = None
     email = models.EmailField(max_length=255, unique=True)
     is_customer = models.BooleanField(default=False, null=True, blank=True)
     is_employee = models.BooleanField(default=False, null=True, blank=True)
     is_nurse = models.BooleanField(default=False, null=True, blank=True)
     is_doctor = models.BooleanField(default=False, null=True, blank=True)
+    full_name = models.CharField(_('Full name'), max_length=255, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     gender_choice = (('-', '-',), ('M', 'Male'), ('F', 'Female'))
     gender = models.CharField(max_length=1, choices=gender_choice, default='-', blank=True)
