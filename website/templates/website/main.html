@@ -13,80 +13,83 @@
 <body>
 <!-- ***** Navbar Area Start ***** -->
 {% block navbar %}
-<nav class="navbar navbar-expand-lg fixed-top nav-menu">
-    <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
-    <button class="navbar-toggler nav-button" type="button"
-            data-toggle="collapse" data-target="#navbarSupportContent">
-        <div class="bg-light line1"></div>
-        <div class="bg-light line2"></div>
-        <div class="bg-light line3"></div>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle m-2 menu-item" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Services</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Dental surgery</a>
-                    <a class="dropdown-item" href="#">Implants</a>
-                    <a class="dropdown-item" href="#">Root canal treatment</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">For Doctors</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link m-2 menu-item" href="{% url 'appointment' %}">Appointment </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link m-2 menu-item" href="{% url 'contact' %}">Contact </a>
-            </li>
-        </ul>
-        <ul class="navbar-nav font-weight-bold">
-
-            {% if request.user.is_anonymous %}
+    <nav class="navbar navbar-expand-lg fixed-top nav-menu">
+        <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
+        <button class="navbar-toggler nav-button" type="button"
+                data-toggle="collapse" data-target="#navbarSupportContent">
+            <div class="bg-light line1"></div>
+            <div class="bg-light line2"></div>
+            <div class="bg-light line3"></div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportContent">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
+                    <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
                 </li>
-                <span></span>
-                <li class="nav-item">
-                    <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
-                </li>
-            {% endif %}
-        </ul>
-
-        <!-- Navbar Hello User Start -->
-        {% if request.user.is_authenticated %}
-            <span class="hello-msg"> Hello,</span>
-            {% if request.user.full_name %}
-                <li class="dropdown hello-msg">
-                    <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle m-2 menu-item" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        {{ user.full_name }}
-                    </a>
+                       aria-haspopup="true" aria-expanded="false">Services</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
-                        <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
+                        <a class="dropdown-item" href="#">Dental surgery</a>
+                        <a class="dropdown-item" href="#">Implants</a>
+                        <a class="dropdown-item" href="#">Root canal treatment</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">For Doctors</a>
                     </div>
                 </li>
-            {% elif request.user.employee.email %}
-                <span><a class="hello-msg" href="{% url 'staff_profile' %}">{{ user.employee.email }}</a></span>
-            {% elif request.user.customer.full_name %}
-                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.full_name }}</a></span>
-            {% elif request.user.customer.email %}
-                <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.customer.email }}</a></span>
-            {% else %}
-                <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+                <li class="nav-item">
+                    <a class="nav-link m-2 menu-item" href="{% url 'appointment' %}">Appointment </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 menu-item" href="{% url 'contact' %}">Contact </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav font-weight-bold">
+
+                {% if request.user.is_anonymous %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
+                    </li>
+                    <span></span>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <!-- Navbar Hello User Start -->
+            {% if request.user.is_authenticated %}
+                <span class="hello-msg"> Hello,</span>
+                {% if request.user.is_employee is True %}
+
+                    <li class="dropdown hello-msg list-unstyled">
+                        <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {% if not request.user.full_name %}
+                                {{ request.user.get_email }}
+                            {% else %}
+                                {{ request.user.full_name }}
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
+                            <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
+                        </div>
+                    </li>
+                {% elif request.user.is_customer is True %}
+                    <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.full_name }}</a></span>
+                {% elif request.user.customer.email %}
+                    <span><a class="hello-msg" href="{% url 'user_profile' %}">{{ user.email }}</a></span>
+                {% else %}
+                    <span><a class="hello-msg" href="#">{{ user.email }}</a></span>
+                {% endif %}
+                <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
             {% endif %}
-            <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
-        {% endif %}
-    </div>
-    <!-- Navbar Hello User End -->
-</nav>
+        </div>
+        <!-- Navbar Hello User End -->
+    </nav>
 {% endblock %}
 <!-- ***** Navbar Area End ***** -->
 
@@ -96,60 +99,60 @@
 
 <hr>
 {% block footer %}
-<!-- Footer Area Start -->
-<footer class="pt-4">
-    <div class="container text-center text-md-left">
-        <div class="row">
-            <!-- Company Area Start -->
-            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
-                <h5 class="font-weight-bold text-uppercase mb-4">Company</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <p><a href="{% url 'our_team' %}">OUR TEAM</a></p>
-                    </li>
-                    <li>
-                        <p><a href="{% url 'appointment' %}">APPOINTMENT</a></p>
-                    </li>
-                    <li>
-                        <p><a href="{% url 'contact' %}">CONTACT</a></p>
-                    </li>
-                </ul>
+    <!-- Footer Area Start -->
+    <footer class="pt-4">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <!-- Company Area Start -->
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Company</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p><a href="{% url 'our_team' %}">OUR TEAM</a></p>
+                        </li>
+                        <li>
+                            <p><a href="{% url 'appointment' %}">APPOINTMENT</a></p>
+                        </li>
+                        <li>
+                            <p><a href="{% url 'contact' %}">CONTACT</a></p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Address Area Start -->
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+                    <ul>
+                        <li>
+                            <p>Aleja Grunwaldzka 238A, Gdańsk, 80-226 Poland</p>
+                        </li>
+                        <li>+48 123 456 789</li>
+                        <li>contact@dent.com</li>
+                    </ul>
+                </div>
+                <!-- Address Area End -->
+                <!-- Opening Hours Area Start -->
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                    <h5 class="font-weight-bold text-uppercase mb-4">Opening Hours</h5>
+                    <ul>
+                        <li><span>Monday - Thursday</span> <span>8.00-18.00</span></li>
+                        <li><span>Friday</span> <span>8.00-17.00</span></li>
+                        <li><span>Saturday</span> <span>10.00-15.00</span></li>
+                        <li><span>Sunday</span> <span>Closed</span></li>
+                    </ul>
+                </div>
+                <!-- Opening Hours Area End -->
             </div>
-            <!-- Address Area Start -->
-            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
-                <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
-                <ul>
-                    <li>
-                        <p>Aleja Grunwaldzka 238A, Gdańsk, 80-226 Poland</p>
-                    </li>
-                    <li>+48 123 456 789</li>
-                    <li>contact@dent.com</li>
-                </ul>
-            </div>
-            <!-- Address Area End -->
-            <!-- Opening Hours Area Start -->
-            <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
-                <h5 class="font-weight-bold text-uppercase mb-4">Opening Hours</h5>
-                <ul>
-                    <li><span>Monday - Thursday</span> <span>8.00-18.00</span></li>
-                    <li><span>Friday</span> <span>8.00-17.00</span></li>
-                    <li><span>Saturday</span> <span>10.00-15.00</span></li>
-                    <li><span>Sunday</span> <span>Closed</span></li>
-                </ul>
-            </div>
-            <!-- Opening Hours Area End -->
         </div>
-    </div>
-    <!-- Copyright Area Start -->
-    <div class="footer-copyright text-center py-3">
-        <p>&copy;<script>document.write(new Date().getFullYear());</script>
-            All rights reserved
-            <i class="" aria-hidden="true"></i> by Adrian Kasprzyk & Martyna Kalkowska
-        </p>
-    </div>
-    <!-- Copyright Area End -->
-</footer>
-<!-- Footer Area End-->
+        <!-- Copyright Area Start -->
+        <div class="footer-copyright text-center py-3">
+            <p>&copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved
+                <i class="" aria-hidden="true"></i> by Adrian Kasprzyk & Martyna Kalkowska
+            </p>
+        </div>
+        <!-- Copyright Area End -->
+    </footer>
+    <!-- Footer Area End-->
 {% endblock %}
 </body>
 <script src="{% static 'website/js/jquery-3.5.1.slim.min.js' %}"></script>
