@@ -128,21 +128,6 @@ def appointment(request):
         return render(request, 'website/appointment.html')
 
 
-@method_decorator([active_required, login_required, customer_required], name='dispatch')
-class CustomerView(UpdateView):
-    """CustomerView update."""
-    form_class = CustomerForm
-    template_name = 'website/user_profile.html'
-    success_url = '/user_profile'
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user.customer
-        return super().form_valid(form)
-
-    def get_object(self, queryset=None):
-        return self.request.user.customer
-
-
 @method_decorator([active_required, login_required, employee_required], name='dispatch')
 class EmployeeView(UpdateView):
     """EmployeeView update."""
@@ -195,3 +180,27 @@ def employee_update_view(request):
         'employee_form': employee_form
     }
     return render(request, 'website/staff_profile.html', context=context)
+
+
+@login_required
+@customer_required
+def customer_update_view(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, request.FILES, instance=request.user)
+        customer_form = EmployeeForm(request.POST, instance=request.user.customer)
+        if user_form.is_valid() and customer_form.is_valid():
+            user = user_form.save(commit=False)
+            user.save()
+            employee = customer_form.save(commit=False)
+            employee.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect(reverse_lazy('user_profile'))
+    else:
+        user_form = UserForm(instance=request.user)
+        customer_form = EmployeeForm(instance=request.user.customer)
+
+    context = {
+        'user_form': user_form,
+        'employee_form': customer_form
+    }
+    return render(request, 'website/user_profile.html', context=context)
