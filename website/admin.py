@@ -24,7 +24,8 @@ class UserAdmin(DjangoUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-    list_display = ('email', 'full_name', 'is_active', 'is_superuser', 'is_staff', 'is_customer', 'is_employee', 'is_nurse', 'is_doctor', 'birth_date', 'gender', 'phone',)
+    list_display = ('email', 'full_name', 'is_active', 'is_superuser', 'is_staff', 'is_customer', 'is_employee',
+                    'is_nurse', 'is_doctor', 'birth_date', 'gender', 'phone',)
     search_fields = ('email',)
     ordering = ('email',)
 
@@ -38,6 +39,7 @@ class CustomerAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('email',)}),
         (_('Personal info'), {'fields': ()}),
+        (_('Assigned Doctor'), {'fields': ('employee',)}),
         (_('Important dates'), {'fields': ('updated_date',)}),
     )
     add_fieldsets = (
@@ -59,7 +61,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('email',)}),
-        (_('Personal info'), {'fields': ('bio',)}),
+        (_('Personal info'), {'fields': ('speciality', 'bio',)}),
         (_('Important dates'), {'fields': ('updated_date',)}),
     )
     add_fieldsets = (

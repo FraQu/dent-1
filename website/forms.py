@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model, password_validation
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
+from multiselectfield import MultiSelectField
 
 from .models import Customer, User, Employee
 
@@ -134,12 +135,16 @@ class UserForm(forms.ModelForm):
         exclude = ['user']
 
 
+speciality_choice = (('dentist', 'Dentist',), ('hygienist', 'Hygienist'), ('surgeon', 'Surgeon'),
+                     ('assistant', 'Assistant'))
+
+
 class EmployeeForm(forms.ModelForm):
     """Employee form."""
-
+    speciality = MultiSelectField(choices=speciality_choice, max_choices=4, max_length=20,  null=True, blank=True)
     bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Employee
-        fields = ('bio',)
+        fields = ('speciality', 'bio',)
         exclude = ['user']

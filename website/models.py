@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from multiselectfield import MultiSelectField
 
 
 class UserManager(BaseUserManager):
@@ -46,6 +47,9 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+gender_choice = (('-', '-',), ('M', 'Male'), ('F', 'Female'))
+
+
 class User(AbstractUser):
     """Custom User model based on Django User model."""
     username = None
@@ -56,7 +60,6 @@ class User(AbstractUser):
     is_doctor = models.BooleanField(default=False, null=True, blank=True)
     full_name = models.CharField(_('Full name'), max_length=255, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    gender_choice = (('-', '-',), ('M', 'Male'), ('F', 'Female'))
     gender = models.CharField(max_length=1, choices=gender_choice, default='-', blank=True)
     phone = models.CharField(max_length=9, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
@@ -73,24 +76,31 @@ class User(AbstractUser):
         return self.email
 
 
-class Customer(models.Model):
-    """Customer profile model - OneToOne User."""
-    email = models.OneToOneField(User, related_name='customer', null=True, on_delete=models.CASCADE)
-    updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
+# class Doctor(models.Model):
+#     """Doctor profile model - OneToOne User."""
+#
+#     email = models.OneToOneField(User, related_name='doctor', null=True, on_delete=models.CASCADE)
+#     speciality = MultiSelectField(max_length=255,  null=True, blank=True)
+#     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
+#
+#     objects = UserManager()
+#
+#     def __str__(self):
+#         return str(self.email)
+#
+#     class Meta:
+#         verbose_name = _('Doctor')
+#         verbose_name_plural = _('Doctors')
 
-    objects = UserManager()
 
-    def __str__(self):
-        return str(self.email)
-
-    class Meta:
-        verbose_name = _('Customer')
-        verbose_name_plural = _('Customers')
+speciality_choice = (('dentist', 'Dentist',), ('hygienist', 'Hygienist'), ('surgeon', 'Surgeon'),
+                     ('assistant', 'Assistant'))
 
 
 class Employee(models.Model):
     """Employee info model - OneToOne User."""
     email = models.OneToOneField(User, related_name='employee', null=True, on_delete=models.CASCADE)
+    speciality = MultiSelectField(choices=speciality_choice, max_choices=4, max_length=20,  null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
 
@@ -102,3 +112,19 @@ class Employee(models.Model):
     class Meta:
         verbose_name = _('Employee')
         verbose_name_plural = _('employees')
+
+
+class Customer(models.Model):
+    """Customer profile model - OneToOne User."""
+    email = models.OneToOneField(User, related_name='customer', null=True, on_delete=models.CASCADE)
+    employee = models.ManyToManyField(Employee, null=True)
+    updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
+
+    objects = UserManager()
+
+    def __str__(self):
+        return str(self.email)
+
+    class Meta:
+        verbose_name = _('Customer')
+        verbose_name_plural = _('Customers')
