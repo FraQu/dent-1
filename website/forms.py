@@ -135,12 +135,10 @@ class UserForm(forms.ModelForm):
         exclude = ['user']
 
 
-speciality_choice = (('dentist', 'Dentist',), ('hygienist', 'Hygienist'), ('surgeon', 'Surgeon'),
-                     ('assistant', 'Assistant'))
-
-
 class EmployeeForm(forms.ModelForm):
     """Employee form."""
+    speciality_choice = (('dentist', 'Dentist',), ('hygienist', 'Hygienist'), ('surgeon', 'Surgeon'),
+                         ('assistant', 'Assistant'))
     speciality = MultiSelectField(choices=speciality_choice, max_choices=4, max_length=20,  null=True, blank=True)
     bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
 

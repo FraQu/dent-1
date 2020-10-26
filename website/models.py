@@ -76,30 +76,11 @@ class User(AbstractUser):
         return self.email
 
 
-# class Doctor(models.Model):
-#     """Doctor profile model - OneToOne User."""
-#
-#     email = models.OneToOneField(User, related_name='doctor', null=True, on_delete=models.CASCADE)
-#     speciality = MultiSelectField(max_length=255,  null=True, blank=True)
-#     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
-#
-#     objects = UserManager()
-#
-#     def __str__(self):
-#         return str(self.email)
-#
-#     class Meta:
-#         verbose_name = _('Doctor')
-#         verbose_name_plural = _('Doctors')
-
-
-speciality_choice = (('dentist', 'Dentist',), ('hygienist', 'Hygienist'), ('surgeon', 'Surgeon'),
-                     ('assistant', 'Assistant'))
-
-
 class Employee(models.Model):
     """Employee info model - OneToOne User."""
     email = models.OneToOneField(User, related_name='employee', null=True, on_delete=models.CASCADE)
+    speciality_choice = (('dentist', 'Dentist',), ('hygienist', 'Hygienist'), ('surgeon', 'Surgeon'),
+                         ('assistant', 'Assistant'))
     speciality = MultiSelectField(choices=speciality_choice, max_choices=4, max_length=20,  null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
@@ -117,7 +98,7 @@ class Employee(models.Model):
 class Customer(models.Model):
     """Customer profile model - OneToOne User."""
     email = models.OneToOneField(User, related_name='customer', null=True, on_delete=models.CASCADE)
-    employee = models.ManyToManyField(Employee, null=True)
+    employee = models.ManyToManyField(Employee)
     updated_date = models.DateField(auto_now_add=True, null=True, blank=True)
 
     objects = UserManager()
