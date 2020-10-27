@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
-from .models import User, Customer, Employee
+from .models import User, Customer, Employee, Appointment
 
 
 @admin.register(User)
@@ -72,5 +72,5 @@ class EmployeeAdmin(admin.ModelAdmin):
     search_fields = ('email',)
     ordering = ('email',)
 
-
+admin.site.register(Appointment)
 admin.site.unregister(Group)

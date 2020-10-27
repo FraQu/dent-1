@@ -1,0 +1,70 @@
+{% extends "website/dashboard.html" %}
+{% block content %}
+
+                    <div class="card text-white bg-secondary mb-3" style="width: 40rem;">
+                        <div class="card-body add-cust-card">
+                            <h5 class="card-title">Add Customer</h5>
+                            <form action="{% url 'add_customer' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label for="customer_email" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="customer_email">
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="customer_phone" class="col-sm-2 col-form-label">Phone number</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="customer_birth" id="customer_phone"  class="form-control" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="customer_name" class="col-sm-2 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="customer_name" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="customer_surname" class="col-sm-2 col-form-label">Surname</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="customer_surname" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="customer_birth" class="col-sm-2 col-form-label">Birth date</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="customer_birth" id="customer_birth"  class="form-control" required>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="customer_insurance" class="col-sm-2 col-form-label">Insurance number</label>
+                                        <div class="col-sm-10 mt-3">
+                                            <input type="text" name="customer_insurance" id="customer_insurance"  class="form-control">
+                                        </div>
+                                </div>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                                            <div class="col-sm-10">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                                    <label class="form-check-label" for="gridRadios1">
+                                                    Female
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                                    <label class="form-check-label" for="gridRadios2">
+                                                    Male
+                                                    </label>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+
+{% endblock %}
+
+{% block footer%}
+{% endblock %}

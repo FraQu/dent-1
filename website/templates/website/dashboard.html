@@ -1,8 +1,12 @@
 {% extends "website/main.html" %}
 {% block navbar %}
-{% endblock %}
-{% block content %}
-
+<style>
+body {
+height: 100vh;
+background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
+                url("/static/website/images/chair.jpg") no-repeat center center /cover;
+}
+</style>
 <nav class="navbar navbar-expand-md navbar-light">
     <button class="navbar-toggler ml-auto mb-2 bg-light"
             type="button"
@@ -12,7 +16,7 @@
     <div class="collapse navbar-collapse" id="sideNavBar">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 fixed-top sidebar">
+                <div class="col-lg-2 fixed-top sidebar">
                     <a href="{% url 'home' %}" class="navbar-brand
                     d-block py-3 mb-3 font-weight-bold b-border text-white">eDent</a>
                 <div class="b-border pb-3">
@@ -30,34 +34,31 @@
                         {% endif %}
                 </div>
                     <ul class="navbar-nav flex-column r-bar">
-                        <li class="nav-item"><a href="#" class="nav-link p-2 mb-1 rbar-link text-white">
-                        <i class="fa fa-home fa-lg mr-3"></i>Dashboard</a></li>
+                        <li class="nav-item"><a href="{% url 'dashboard' %}" class="nav-link p-2 mb-1 rbar-link text-white">
+                        <i class="fa fa-home fa-lg mr-1"></i>Dashboard</a></li>
                         <li class="nav-item"><a href="{% url 'staff_profile' %}" class="nav-link p-2 mb-1 rbar-link text-white"">
-                        <i class="fa fa-id-card fa-lg mr-3"></i>Customer Profile</a></li>
+                        <i class="fa fa-id-card fa-lg mr-1"></i>Customer Profile</a></li>
                         <li class="nav-item"><a href="{% url 'user_profile' %}" class="nav-link p-2 mb-1 rbar-link text-white"">
-                        <i class="fa fa-user-md fa-lg mr-3"></i>Employee Profile</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link p-2 mb-1 rbar-link text-white"">
-                        <i class="fa fa-user-plus fa-lg mr-3"></i>Add Customer</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link p-2 mb-1 rbar-link text-white"">
-                        <i class="fa fa-shopping-cart fa-lg mr-3"></i>Services</a></li>
+                        <i class="fa fa-user-md fa-lg mr-1"></i>Employee Profile</a></li>
+                        <li class="nav-item"><a href="{% url 'add_customer' %}" class="nav-link p-2 mb-1 rbar-link text-white">
+                        <i class="fa fa-user-plus fa-lg mr-1"></i>Add Customer</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link p-2 mb-1 rbar-link text-white">
+                        <i class="fa fa-shopping-cart fa-lg mr-1"></i>Services</a></li>
+                        <li class="nav-item"><a href="{% url 'calendar' %}" class="nav-link p-2 mb-1 rbar-link text-white">
+                            <i class="fa fa-calendar mr-1 text-light"></i>Appointments</a>
+                        </li>
+                        <li class="nav-item"><a href="#" class="nav-link p-2 mb-1 rbar-link text-white">
+                            <i class="fa fa-group mr-1 text-light"></i>Customers</a>
+                        </li>
 
                     </ul>
                 </div>
-                <div class="col-lg-9 ml-auto fixed-top py-2 topbar">
+                <div class="col-lg-10 ml-auto fixed-top py-2 topbar">
                     <div class="row">
-                        <div class="col-md-3">
-                            <h4 class="text-light text-uppercase mb-0">Dashboard</h4>
-                        </div>
-                        <div class="col-md-5 offset-md-4">
+                        <div class="col-md-5 offset-md-7">
                             <ul class="navbar-nav float-right">
-                                <li class="nav-item"><a href="#" class="nav-link text-light">
-                                    <i class="fa fa-calendar mr-1 text-light"></i>Appointments</a>
-                                </li>
-                                <li class="nav-item"><a href="#" class="nav-link text-light">
-                                    <i class="fa fa-group mr-1 text-light"></i>Customers</a>
-                                </li>
-                                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-danger">
-                                    <i class="fa fa-sign-out mr-1 text-danger"></i>Logout</a>
+                                <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-danger logout-style">
+                                <i class="fa fa-sign-out mr-1 text-danger"></i>Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -66,10 +67,23 @@
 
                 </div>
             </div>
+
         </div>
     </div>
-
 </nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-10 ml-auto">
+            <div class="row pt-5 mt-3 mb-5 justify-content-center">
+                <div class="d-flex">
+                    {% endblock %}
+                    {% block content %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}
 

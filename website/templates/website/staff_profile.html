@@ -1,36 +1,35 @@
-{% extends 'website/main.html' %}
+{% extends "website/dashboard.html" %}
 {% load static %}
 {% block content %}
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="card card-body">
-                    <a class="btn btn-secondary" href="{% url 'home' %}"> &#8592; Back to Home Page</a>
-                    <hr>
-                    <h3 style="text-align: center">Profile Information</h3>
-                    <hr>
-                    {% if request.user.profile_pic.url is not null %}
-                        <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
-                             src="{{ request.user.profile_pic.url }}">
-                    {% else %}
-                        <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
-                             src="{% static 'website/images/default_profile_photo.png' %}">
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col col-lg-6">
-                <div class="card card-body">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ user_form.as_p }}
-                        {{ employee_form.as_p }}
-                        <input class="btn btn-primary" type="submit" value="Update Profile">
-                    </form>
-                </div>
-            </div>
-        </div>
+<div class="row justify-content-center ml-2">
+<div class="card card-body customized-card">
+    <a class="btn btn-secondary" href="{% url 'home' %}"> &#8592; Back to Home Page</a>
+    <hr>
+    <h3 style="text-align: center">Profile Information</h3>
+    <hr>
+    {% if request.user.profile_pic.url is not null %}
+    <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
+         src="{{ request.user.profile_pic.url }}">
+    {% else %}
+    <img class="bd-placeholder-img card-img-top card-img-bottom" alt="User picture"
+         src="{% static 'website/images/default_profile_photo.png' %}">
+    {% endif %}
+</div>
+</div>
+<div class="col col-lg-6">
+    <div class="card card-body customized-card">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ employee_form.as_p }}
+            <input class="btn btn-primary" type="submit" value="Update Profile">
+        </form>
     </div>
+</div>
+</div>
 
+
+{% endblock %}
+
+{% block footer%}
 {% endblock %}

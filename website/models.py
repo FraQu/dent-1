@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 
 class UserManager(BaseUserManager):
@@ -102,3 +103,20 @@ class Employee(models.Model):
     class Meta:
         verbose_name = _('Employee')
         verbose_name_plural = _('employees')
+
+class Appointment(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    customer = models.ForeignKey(Customer, verbose_name='Customer', on_delete=models.CASCADE)
+    doctor = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_doctor' : True})
+
+    @property
+    def get_html_url(self):
+        url = reverse('event_edit', args=(self.id,))
+        return f'<a href="{url}"> {self.title} {self.start_time.hour}:{self.start_time.minute} - ' \
+            f'{self.end_time.hour}:{self.end_time.minute}</a>'
+
+
+

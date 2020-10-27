@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Customer, User, Employee
+from .models import Customer, User, Employee, Appointment
 
 UserModel = get_user_model()
 
@@ -143,3 +143,10 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         fields = ('bio',)
         exclude = ['user']
+
+
+class AppointmentForm(forms.ModelForm):
+
+    class Meta:
+        model = Appointment
+        fields = ('title', 'description', 'start_time', 'end_time', 'customer', 'doctor')

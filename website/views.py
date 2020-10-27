@@ -1,14 +1,18 @@
+from datetime import datetime, timedelta, date
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, FormView
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.views.generic import CreateView, FormView, ListView
+from django.utils.safestring import mark_safe
+
 
 from .decorators import active_required, login_required, customer_required, employee_required
-from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm
-from .models import Employee, User
+from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm, AppointmentForm
+from .models import Employee, User, Appointment
+from .utils import WeekScheduler
 
 email_contact = ['contact@dent.com']
 
@@ -195,3 +199,54 @@ def our_team_view(request):
         "employee": employee,
     }
     return render(request, 'website/our_team.html', context)
+
+
+@login_required
+@active_required
+def addcustomer(request):
+    return render(request, 'website/add_customer.html',
+                  {'section': 'dashboard'})
+
+
+class SchedulerView(ListView):
+    model = Appointment
+    template_name = 'website/calendar.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        scheduled_date = get_date(self.request.GET.get('date', None))
+        scheduler = WeekScheduler()
+        html_sche = scheduler.caltabcreator(scheduled_date)
+        context['calendar'] = mark_safe(html_sche)
+        context['prev_week'] = prev_week(scheduled_date)
+        context['next_week'] = next_week(scheduled_date)
+        return context
+
+def get_date(reg_date):
+    if reg_date:
+        year, month, day = (int(x) for x in reg_date.split('-'))
+        return date(year, month, day)
+    return datetime.now().date()
+
+def prev_week(scheduled_date):
+    prev_week_date = scheduled_date - timedelta(days=7)
+    prev_date_format = 'date=' + str(prev_week_date.year) + '-' + str(prev_week_date.month) + '-' + str(prev_week_date.day)
+    return prev_date_format
+
+def next_week(scheduled_date):
+    next_week_date = scheduled_date + timedelta(days=7)
+    next_date_format = 'date=' + str(next_week_date.year) + '-' + str(next_week_date.month) + '-' + str(next_week_date.day)
+    return next_date_format
+
+def schedule_appointment(request, appointment_id=None):
+    instance = Appointment()
+    if appointment_id:
+        instance = get_object_or_404(Appointment, pk=appointment_id)
+    else:
+        instance = Appointment()
+
+    form = AppointmentForm(request.POST or None, instance=instance)
+    if request.POST and form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('calendar'))
+    return render(request, 'website/event.html', {'form': form})
