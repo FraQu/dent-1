@@ -21,17 +21,26 @@ background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
                     d-block py-3 mb-3 font-weight-bold b-border text-white">eDent</a>
                 <div class="b-border pb-3">
                     <!-- Navbar Hello User Start -->
-                        {% if request.user.employee.full_name %}
-                            <span><a href="{% url 'user_profile' %}" class="text-white">{{ user.employee.full_name }}</a></span>
-                        {% elif request.user.employee.email %}
-                            <span><a href="{% url 'staff_profile' %}" class="text-white">{{ user.employee.email }}</a></span>
-                        {% elif request.user.customer.full_name %}
-                            <span><a href="{% url 'user_profile' %}" class="text-white">{{ user.customer.full_name }}</a></span>
-                        {% elif request.user.customer.email %}
-                            <span><a href="{% url 'user_profile' %}" class="text-white">{{ user.customer.email }}</a></span>
+                        {% if request.user.is_authenticated %}
+                {% if request.user.is_employee is True %}
+                        <a class="nav-link hello-msg" href="#" id="navbarDropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            {% if not request.user.full_name %}
+                                {{ request.user.get_email }}
+                            {% else %}
+                                {{ request.user.full_name }}
+                            {% endif %}
+                        </a>
+                {% elif request.user.is_customer is True %}
+                    <span><a class="hello-msg" href="{% url 'user_profile' %}">
+                        {% if not request.user.full_name %}
+                            {{ request.user.get_email }}
                         {% else %}
-                            <span><a href="#">{{ user.email }}</a></span>
+                            {{ request.user.full_name }}
                         {% endif %}
+                    </a></span>
+                {% endif %}
+            {% endif %}
                 </div>
                     <ul class="navbar-nav flex-column r-bar">
                         <li class="nav-item"><a href="{% url 'dashboard' %}" class="nav-link p-2 mb-1 rbar-link text-white">

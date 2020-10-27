@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, FormView, ListView
 from django.utils.safestring import mark_safe
+from django.utils.decorators import method_decorator
 
 
 from .decorators import active_required, login_required, customer_required, employee_required
@@ -211,6 +212,10 @@ def addcustomer(request):
 class SchedulerView(ListView):
     model = Appointment
     template_name = 'website/calendar.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
