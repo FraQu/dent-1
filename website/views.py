@@ -245,6 +245,7 @@ def next_week(scheduled_date):
 
 def schedule_appointment(request, appointment_id=None):
     instance = Appointment()
+
     if appointment_id:
         instance = get_object_or_404(Appointment, pk=appointment_id)
     else:
@@ -255,3 +256,8 @@ def schedule_appointment(request, appointment_id=None):
         form.save()
         return HttpResponseRedirect(reverse('calendar'))
     return render(request, 'website/event.html', {'form': form})
+
+def todaysvisits(request):
+    today = datetime.today()
+    all_appointments = Appointment.objects.all(filter(start_time__day=today))
+

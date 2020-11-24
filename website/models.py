@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 
 
 class UserManager(BaseUserManager):
@@ -104,6 +105,7 @@ class Employee(models.Model):
         verbose_name = _('Employee')
         verbose_name_plural = _('employees')
 
+
 class Appointment(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -112,11 +114,52 @@ class Appointment(models.Model):
     customer = models.ForeignKey(Customer, verbose_name='Customer', on_delete=models.CASCADE)
     doctor = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_doctor' : True})
 
+    class Meta:
+        verbose_name = _('Appointment')
+        verbose_name_plural = _('Appointments')
+
+    def check_override(self, fixed_start, fixed_end, new_start, new_end, fixed_doctor,
+                      new_doctor, fixed_customer, new_customer):
+        override = False
+        if (new_start == fixed_end or new_end == fixed_start) \
+                and (new_doctor != fixed_doctor) \
+                and (new_customer != fixed_customer):
+            override = False
+        elif ((new_start >= fixed_start and new_start <= fixed_end)
+              or (new_end >= fixed_start and new_end <= fixed_end)) \
+                and (new_doctor == fixed_doctor) \
+                and (new_customer == fixed_customer):
+            override = True
+        elif new_start <= fixed_start and new_end >= fixed_end \
+                and (new_doctor == fixed_doctor) \
+                and (new_customer == fixed_customer):
+            override = True
+
+        return override
+
     @property
     def get_html_url(self):
         url = reverse('event_edit', args=(self.id,))
-        return f'<a href="{url}"> {self.title} {self.start_time.hour}:{self.start_time.minute} - ' \
+        if self.doctor.full_name is not None:
+            doctor = self.doctor.full_name
+        else:
+            doctor = self.doctor
+
+        return f'<a href="{url}"> Doc: {doctor} <br> Pat: {self.customer} {self.start_time.hour}:{self.start_time.minute} - ' \
             f'{self.end_time.hour}:{self.end_time.minute}</a>'
 
 
+    def clean(self):
+        if self.end_time <= self.start_time:
+            raise ValueError('Ending time must be after start time')
 
+        appointments = Appointment.objects.all()
+        if appointments.exists():
+            for appointment in appointments:
+                if self.check_override(appointment.start_time, appointment.end_time,
+                                      self.start_time,self.end_time, appointment.doctor,
+                                      self.doctor, appointment.customer, self.customer):
+                    raise ValidationError(
+                        f'This appointment time or doctor is already in use. Choose another date schedule'
+                        f' {str(appointment.start_time.hour)} {str(appointment.start_time.minute)} - '
+                        f'{str(appointment.doctor)}')
