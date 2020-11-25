@@ -31,5 +31,8 @@ urlpatterns = [
     path('calendar/', SchedulerView.as_view(), name='calendar'),
     path('appointment/new/$', views.schedule_appointment, name='appointment_new'),
 	path('event/edit/(?P<appointment_id>\d+)/$', views.schedule_appointment, name='event_edit'),
+    path('services', views.services, name='services'),
+    path('services_dashboard', views.services_dashboard, name='services_dashboard'),
+
 
 ]

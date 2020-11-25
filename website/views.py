@@ -261,3 +261,13 @@ def todaysvisits(request):
     today = datetime.today()
     all_appointments = Appointment.objects.all(filter(start_time__day=today))
 
+def services(request):
+    """Index page function."""
+
+    return render(request, 'website/services.html')
+
+def services_dashboard(request):
+    """Index page function."""
+
+    return render(request, 'website/services_dashboard.html')
+

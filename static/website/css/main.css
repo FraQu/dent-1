@@ -132,7 +132,6 @@ a.logout-msg {
     top: 20px;
 }
 
-/* LOGIN.HTML stylesheet */
 
 .login-box, .register-box, .appointment, .contact, .album{
     padding: 150px;
@@ -190,4 +189,16 @@ a:hover {
     underline: none;
 }
 
+.services{
+    padding: 130px;
+    height: 300px;
+    opacity: 60%;
+}
+
+.services-dash{
+    width: 85%;
+    position: absolute;
+    z-index: 2;
+    opacity: 0.8
+}
 

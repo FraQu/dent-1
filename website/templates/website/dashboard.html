@@ -51,7 +51,7 @@ background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
                         <i class="fa fa-user-md fa-lg mr-1"></i>Employee Profile</a></li>
                         <li class="nav-item"><a href="{% url 'add_customer' %}" class="nav-link p-2 mb-1 rbar-link text-white">
                         <i class="fa fa-user-plus fa-lg mr-1"></i>Add Customer</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link p-2 mb-1 rbar-link text-white">
+                        <li class="nav-item"><a href="{% url 'services_dashboard' %}" class="nav-link p-2 mb-1 rbar-link text-white">
                         <i class="fa fa-shopping-cart fa-lg mr-1"></i>Services</a></li>
                         <li class="nav-item"><a href="{% url 'calendar' %}" class="nav-link p-2 mb-1 rbar-link text-white">
                             <i class="fa fa-calendar mr-1 text-light"></i>Appointments</a>
@@ -83,7 +83,7 @@ background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-10 ml-auto">
-            <div class="row pt-5 mt-3 mb-5 justify-content-center">
+            <div class="row pt-5 mt-2 mb-5 justify-content-center">
                     {% endblock %}
                     {% block content %}
                 </div>
