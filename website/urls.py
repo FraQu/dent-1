@@ -33,6 +33,7 @@ urlpatterns = [
 	path('event/edit/(?P<appointment_id>\d+)/$', views.schedule_appointment, name='event_edit'),
     path('services', views.services, name='services'),
     path('services_dashboard', views.services_dashboard, name='services_dashboard'),
+    path('customers', views.all_customers, name='customers')
 
 
 ]

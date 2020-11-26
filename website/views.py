@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 
 from .decorators import active_required, login_required, customer_required, employee_required
 from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm, AppointmentForm
-from .models import Employee, User, Appointment
+from .models import Employee, User, Appointment, Customer
 from .utils import WeekScheduler
 
 email_contact = ['contact@dent.com']
@@ -137,8 +137,11 @@ def appointment(request):
 @login_required
 @active_required
 def dashboard(request):
-    return render(request, 'website/dashboard.html',
-                  {'section': 'dashboard'})
+    visits = Appointment.objects.all()
+    context = {
+        'visit': visits
+    }
+    return render(request, 'website/dashboard.html', context)
 
 
 @login_required
@@ -257,10 +260,6 @@ def schedule_appointment(request, appointment_id=None):
         return HttpResponseRedirect(reverse('calendar'))
     return render(request, 'website/event.html', {'form': form})
 
-def todaysvisits(request):
-    today = datetime.today()
-    all_appointments = Appointment.objects.all(filter(start_time__day=today))
-
 def services(request):
     """Index page function."""
 
@@ -270,4 +269,13 @@ def services_dashboard(request):
     """Index page function."""
 
     return render(request, 'website/services_dashboard.html')
+
+def all_customers(request):
+    customers = User.objects.all().filter(is_customer=True)
+
+    context = {
+        'customers': customers
+    }
+
+    return render(request, 'website/customers.html', context)
 

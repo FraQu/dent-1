@@ -56,7 +56,7 @@ background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
                         <li class="nav-item"><a href="{% url 'calendar' %}" class="nav-link p-2 mb-1 rbar-link text-white">
                             <i class="fa fa-calendar mr-1 text-light"></i>Appointments</a>
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link p-2 mb-1 rbar-link text-white">
+                        <li class="nav-item"><a href="{% url 'customers' %}" class="nav-link p-2 mb-1 rbar-link text-white">
                             <i class="fa fa-group mr-1 text-light"></i>Customers</a>
                         </li>
 
@@ -85,7 +85,16 @@ background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
         <div class="col-lg-10 ml-auto">
             <div class="row pt-5 mt-2 mb-5 justify-content-center">
                     {% endblock %}
+
                     {% block content %}
+                    {% if visits %}
+                        {% for appointment in visits%}
+                            {{ appointment.title }}
+                        {% endfor %}
+                    {% else %}
+                        <p> No appointments for today </p>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
