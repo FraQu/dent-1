@@ -1,7 +1,8 @@
 {% extends "website/dashboard.html" %}
 {% load static %}
 {% block content %}
-<div class="clearfix">
+<div class="container">
+    <h1 class="text-light">Scheduler</h1>
     <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_week }}"> Previous Week </a>
     <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_week }}"> Next Week </a>
     <a class="btn btn-info right" href="{% url 'appointment_new' %}"> New Appointment </a>

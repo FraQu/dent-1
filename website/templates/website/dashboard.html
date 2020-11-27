@@ -87,14 +87,34 @@ background: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .5)),
                     {% endblock %}
 
                     {% block content %}
-                    {% if visits %}
-                        {% for appointment in visits%}
-                            {{ appointment.title }}
-                        {% endfor %}
-                    {% else %}
-                        <p> No appointments for today </p>
-                    {% endif %}
-
+                        <div class="container">
+                            <h1 class="text-light"> Todays visits</h1>
+                            <table class="table table-light table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Start Time</th>
+                                    <th scope="col">End Time</th>
+                                    <th scope="col">Patient</th>
+                                    <th scope="col">Doctor</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% if visits %}
+                                        {% for visit in visits%}
+                                            <tr>
+                                                <td>{{visit.start_time}}</td>
+                                                <td>{{visit.end_time}}</td>
+                                                <td>{{visit.doctor}}</td>
+                                                <td>{{visit.customer}}</td>
+                                                <td>{{visit.title}}</td>
+                                                <td>{{visit.description}}</td>
+                                            </tr>
+                                </tbody>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

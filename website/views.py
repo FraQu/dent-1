@@ -137,10 +137,12 @@ def appointment(request):
 @login_required
 @active_required
 def dashboard(request):
-    visits = Appointment.objects.all()
+    visits = Appointment.objects.all().filter(start_time__date=datetime.today().strftime('%Y-%m-%d'))
+
     context = {
-        'visit': visits
+        'visits': visits
     }
+
     return render(request, 'website/dashboard.html', context)
 
 
@@ -278,4 +280,3 @@ def all_customers(request):
     }
 
     return render(request, 'website/customers.html', context)
-

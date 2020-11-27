@@ -19,13 +19,13 @@ class WeekScheduler(HTMLCalendar):
 		return week
 
 	#returns events in separate cell for given date
-	def daily_appointments(self, day, all_appointments):
-		day_appointments = all_appointments.filter(start_time__day=day)
+	def daily_appointments(self, date, all_appointments):
+		day_appointments = all_appointments.filter(start_time__date=date)
 		single_appointment = ''
 		for appointment in day_appointments:
 			single_appointment += f'<li class="list-group-item list-group-item-action"> {appointment.get_html_url} </li>'
 
-		if day != 0:
+		if date != 0:
 			return f"<td><ul class='list-group list-group-flush'> {single_appointment} </ul></td>"
 		return '<td></td>'
 
@@ -42,8 +42,7 @@ class WeekScheduler(HTMLCalendar):
 			f'<th scope="col">Friday {current_week[4]}</th></tr>'
 		table += f'<tr>'
 		for date in current_week:
-			day = date.day
-			eventsforday = self.daily_appointments(day, all_appointments)
+			eventsforday = self.daily_appointments(date, all_appointments)
 			table += f'{eventsforday}'
 		table += f'</tr>'
 
