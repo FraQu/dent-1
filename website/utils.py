@@ -9,8 +9,7 @@ class WeekScheduler(HTMLCalendar):
 	#returns current 5 week days MON-FRI
 	def current_week(self, scheduled_date):
 		one_day = timedelta(days=1)
-		# today = datetime.now().date()
-		day_id = (scheduled_date.weekday()) % 7
+		day_id = scheduled_date.weekday()
 		date = scheduled_date - timedelta(days=day_id)
 		week = []
 		for n in range(5):

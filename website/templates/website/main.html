@@ -14,7 +14,6 @@
 <!-- ***** Navbar Area Start ***** -->
 {% block navbar %}
     <nav class="navbar navbar-expand-lg fixed-top nav-menu">
-        <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
         <button class="navbar-toggler nav-button" type="button"
                 data-toggle="collapse" data-target="#navbarSupportContent">
             <div class="bg-light line1"></div>
@@ -23,6 +22,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="navbar-brand text-light h2 font-weight-bold">eDent</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link m-2 menu-item" href="{% url 'our_team' %}">Our team</a>
                 </li>
@@ -40,11 +42,11 @@
 
                 {% if request.user.is_anonymous %}
                     <li class="nav-item">
-                        <a class="btn btn-outline-primary mr-1" href="{% url 'login' %}">Login </a>
+                        <a class="btn btn-outline-light mr-1" href="{% url 'login' %}">Login </a>
                     </li>
                     <span></span>
                     <li class="nav-item">
-                        <a class="btn btn-outline-success mr-1" href="{% url 'register' %}">Register </a>
+                        <a class="btn btn-outline-warning mr-1" href="{% url 'register' %}">Register </a>
                     </li>
                 {% endif %}
             </ul>
@@ -53,22 +55,13 @@
             {% if request.user.is_authenticated %}
                 <span class="hello-msg"> Hello,</span>
                 {% if request.user.is_employee is True %}
-
-                    <li class="dropdown hello-msg list-unstyled">
-                        <a class="nav-link dropdown-toggle hello-msg" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link hello-msg" href="{% url 'dashboard' %}">
                             {% if not request.user.full_name %}
                                 {{ request.user.get_email }}
                             {% else %}
                                 {{ request.user.full_name }}
                             {% endif %}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'user_profile' %}">Customer Profile</a>
-                            <a class="dropdown-item" href="{% url 'staff_profile' %}">Employee Profile</a>
-                        </div>
-                    </li>
                 {% elif request.user.is_customer is True %}
                     <span><a class="hello-msg" href="{% url 'user_profile' %}">
                         {% if not request.user.full_name %}
@@ -78,7 +71,7 @@
                         {% endif %}
                     </a></span>
                 {% endif %}
-                <span><a class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
+                <span><a class="hello-msg text-warning" href="{% url 'logout' %}">Logout</a></span>
             {% endif %}
         </div>
         <!-- Navbar Hello User End -->

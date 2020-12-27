@@ -27,7 +27,6 @@ urlpatterns = [
              success_url=reverse_lazy('password_change_complete'),
              template_name='registration/password_change.html')),
          name='password_change'),
-    path('add_customer/', views.addcustomer, name='add_customer'),
     path('calendar/', SchedulerView.as_view(), name='calendar'),
     path('appointment/new/$', views.schedule_appointment, name='appointment_new'),
 	path('event/edit/(?P<appointment_id>\d+)/$', views.schedule_appointment, name='event_edit'),

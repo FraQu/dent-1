@@ -15,7 +15,7 @@ from .forms import RegisterForm, LoginForm, CustomerForm, EmployeeForm, UserForm
 from .models import Employee, User, Appointment, Customer
 from .utils import WeekScheduler
 
-email_contact = ['contact@dent.com']
+email_contact = ['']
 
 
 def index(request):
@@ -110,6 +110,7 @@ def appointment(request):
         message_time = request.POST['message-time']
         message = request.POST['message']
 
+
         # Send Email
         appointment_topic = 'Name: ' + message_name + ' Phone: ' + message_phone + ' Email: ' + message_email + \
                             ' Address:' + message_address + ' Schedule: ' + message_date + ' ' + message_time + \
@@ -197,21 +198,15 @@ def customer_update_view(request):
 
 
 def our_team_view(request):
-    users = User.objects.all().filter(is_staff=True)
-    employee = Employee.objects.all()
+    users = User.objects.all().filter(is_customer=False)
+
 
     context = {
         "object_list": users,
-        "employee": employee,
     }
     return render(request, 'website/our_team.html', context)
 
 
-@login_required
-@active_required
-def addcustomer(request):
-    return render(request, 'website/add_customer.html',
-                  {'section': 'dashboard'})
 
 
 class SchedulerView(ListView):
@@ -219,6 +214,8 @@ class SchedulerView(ListView):
     template_name = 'website/calendar.html'
 
     @method_decorator(login_required)
+    @method_decorator(active_required)
+    @method_decorator(employee_required)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
@@ -272,6 +269,9 @@ def services_dashboard(request):
 
     return render(request, 'website/services_dashboard.html')
 
+@login_required
+@active_required
+@employee_required
 def all_customers(request):
     customers = User.objects.all().filter(is_customer=True)
 
