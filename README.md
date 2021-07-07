@@ -1,6 +1,23 @@
-# Dent
+# Dent - System for managing the dental office
 
-## How to setup 
+___
+
+##  Functionality
+
+---
+- Login and registration
+- Booking system
+- Contact form
+- Preview of upcoming appointments
+- Auto update our team page whenever new crew member appears
+
+
+
+
+
+## How to set up
+
+---
 ### GNU/Linux 
 1. Clone this project: `git clone https://github.com/kasprzykapps/dent.git`
 2. Go to project directory: `cd dent`
@@ -11,7 +28,7 @@
 7. Migrate website app database: `python manage.py migrate website`
 8. Migrate project database: `python manage.py migrate`
 9. Create super user: `python manage.py createsuperuser`
-10. Finally run the project: `python manage.py runserver`
+10. Finally, run the project: `python manage.py runserver`
 
 ### Windows
 1. Clone this project: `git clone https://github.com/kasprzykapps/dent.git`
@@ -23,7 +40,7 @@
 7. Migrate website app database: `python manage.py migrate website`
 8. Migrate project database: `python manage.py migrate`
 9. Create super user: `python manage.py createsuperuser`
-10. Finally run the project: `python manage.py runserver`
+10. Finally, run the project: `python manage.py runserver`
 
 ##### Troubleshooting
 1. Database is not updating: `python manage.py migrate --run-syncdb`
