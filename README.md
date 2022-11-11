@@ -36,7 +36,7 @@ ___
 3. Create a virtual environment: `virtualenv venv`
 4. Activate virtual environment: `venv\Scripts\activate`
 5. Install requirements package: `pip install -r requirements.txt`
-6. Check new migrations: `python manage.py makemirations`
+6. Check new migrations: `python manage.py makemigrations`
 7. Migrate website app database: `python manage.py migrate website`
 8. Migrate project database: `python manage.py migrate`
 9. Create super user: `python manage.py createsuperuser`
