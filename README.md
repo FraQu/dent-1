@@ -11,7 +11,7 @@ ___
 - Preview of upcoming appointments
 - Auto update our team page whenever new crew member appears
 
-
+Checkout: https://dent-t.herokuapp.com/
 
 
 
@@ -44,3 +44,6 @@ ___
 
 ##### Troubleshooting
 1. Database is not updating: `python manage.py migrate --run-syncdb`
+
+Besides... still very buggy. 
+In development. Not active :D
