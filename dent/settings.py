@@ -25,7 +25,11 @@ SECRET_KEY = 'o4yv6@*!54m(4(epq7ma2+!fg_&9#a0)3kbzo0ow*px8!lapfc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    '127.0.0.1',
+    'dent-t.herokuapp.com',
+]
 
 AUTH_USER_MODEL = 'website.User'
 
